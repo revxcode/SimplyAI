@@ -22,8 +22,7 @@ function App() {
   const [inputMessage, setInputMessage] = useState("");
   const [chatHistory, setChatHistory] = useState([]);
   const [optimisticMessage, setOptimisticMessage] = useState(null);
-  // eslint-disable-next-line no-unused-vars
-  const [isLoading, setIsLoading] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [showHelpPopup, setShowHelpPopup] = useState(false);
   const [darkMode, setDarkMode] = useState(
@@ -38,8 +37,9 @@ function App() {
   const chatContainerRef = useRef(null);
 
   useEffect(() => {
+    console.log("chatHistory changed, calling scrollToBottom");
     scrollToBottom();
-  }, [chatHistory, optimisticMessage, isTyping]);
+  }, [chatHistory]);
 
   useEffect(() => {
     if (darkMode) {
@@ -53,15 +53,14 @@ function App() {
 
   const scrollToBottom = () => {
     if (chatContainerRef.current) {
-      // chatContainerRef.current.scrollTop =
-      //   chatContainerRef.current.scrollHeight;
-
+      console.log("Scrolling to bottom...");
       // Scroll to bottom smoothly
       chatContainerRef.current.scroll({
         top: chatContainerRef.current.scrollHeight,
-        left: 0,
         behavior: "smooth",
       });
+    } else {
+      console.log("chatContainerRef.current is null");
     }
   };
 
@@ -78,7 +77,6 @@ function App() {
     try {
       const chatCompletion = await getGroqChatCompletion(inputMessage);
       const response = chatCompletion.choices[0]?.message?.content || "";
-      // console.log("response", response);
 
       setChatHistory((prevChatHistory) => [
         ...prevChatHistory,
@@ -145,18 +143,30 @@ function App() {
               {children}
             </a>
           ),
-          code: ({ children }) => (
-            <div className="relative">
-              <CopyToClipboard text={children}>
-                <button className="absolute right-0 top-0 mt-2 mr-2 p-1 bg-gray-200 dark:bg-gray-900 hover:opacity-50 border border-gray-500 rounded active:border-indigo-300">
-                  Copy
-                </button>
-              </CopyToClipboard>
-              <pre className="bg-gray-200 dark:bg-gray-900 p-2 rounded py-4 px-2 my-2 text-wrap text-gray-600 dark:text-gray-400 text-sm">
-                <code>{children}</code>
-              </pre>
-            </div>
-          ),
+          code: ({ children }) => {
+            // eslint-disable-next-line react-hooks/rules-of-hooks
+            const [copied, setCopied] = useState(false);
+            return (
+              <div className="relative">
+                <CopyToClipboard text={children}>
+                  <button
+                    className="absolute right-0 top-0 mt-2 mr-2 p-1 text-xs md:text-sm bg-gray-200 dark:bg-gray-900 border border-gray-500 rounded focus:border-green-400 focus:border-2 duration-200"
+                    onClick={() => {
+                      setCopied(true);
+                      setTimeout(() => {
+                        setCopied(false);
+                      }, 3000);
+                    }}
+                  >
+                    {copied ? "Copied!" : "Copy"}
+                  </button>
+                </CopyToClipboard>
+                <pre className="bg-gray-200 dark:bg-gray-900 p-2 rounded py-4 px-2 my-2 text-wrap text-gray-600 dark:text-gray-400 text-sm">
+                  <code>{children}</code>
+                </pre>
+              </div>
+            );
+          },
         }}
       >
         {children}
@@ -172,7 +182,7 @@ function App() {
         darkMode={darkMode}
       />
       <div
-        className="flex-grow overflow-y-auto p-4 bg-gray-100 dark:bg-gray-900 duration-200 overflow-x-hidden max-w-screen-2xl"
+        className="flex-grow p-4 bg-gray-100 dark:bg-gray-900 duration-200 md:px-8 overflow-y-auto"
         ref={chatContainerRef}
       >
         {chatHistory.map((message, index) => (
@@ -180,7 +190,7 @@ function App() {
             key={index}
             className={`my-2 p-2 rounded-lg ${
               message.role === "user"
-                ? "bg-indigo-300 dark:bg-indigo-600  text-gray-100 dark:text-gray-100 self-end animate-slide-in-right px-4"
+                ? "bg-indigo-300 dark:bg-indigo-600  text-gray-100 dark:text-gray-100 self-end px-4"
                 : "bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 self-start animate-slide-in-left"
             }`}
           >
@@ -188,7 +198,7 @@ function App() {
           </div>
         ))}
         {optimisticMessage && (
-          <div className="my-2 p-2 rounded-lg bg-indigo-300 dark:bg-indigo-600 text-gray-800 dark:text-gray-200 self-end animate-slide-in-right">
+          <div className="my-2 p-2 rounded-lg bg-indigo-300 dark:bg-indigo-600 text-gray-800 dark:text-gray-200 self-end">
             <MarkdownRender>{optimisticMessage.content}</MarkdownRender>
           </div>
         )}
