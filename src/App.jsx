@@ -162,6 +162,7 @@ function App() {
 
   return (
     <div className={`flex flex-col h-screen ${darkMode ? "dark" : ""}`}>
+      <p>{API_KEY}</p>
       <Header
         toggleHelpPopup={toggleHelpPopup}
         toggleDarkMode={toggleDarkMode}
