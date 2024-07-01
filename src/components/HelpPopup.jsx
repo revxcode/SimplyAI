@@ -1,13 +1,20 @@
+// eslint-disable-next-line react/prop-types
 function HelpPopup({ toggleHelpPopup }) {
   return (
     <div className="fixed inset-0 flex items-center justify-center z-20">
       <div className="fixed inset-0 bg-black opacity-50"></div>
       <div className="bg-white dark:bg-gray-800 p-8 rounded-lg z-30 w-11/12 max-w-md mx-auto">
-        <h2 className="text-xl font-bold mb-4">Help</h2>
-        <ul className="list-disc pl-5">
-          <li className="mb-1">Type your message in the input area.</li>
-          <li className="mb-1">Press "Send" or Enter to send your message.</li>
-          <li className="mb-1">Use the "Copy" button to copy code snippets.</li>
+        <h2 className="text-xl font-bold mb-4 text-gray-900 dark:text-gray-100">
+          Help
+        </h2>
+        <ul className="list-disc pl-5 text-gray-900 dark:text-gray-100">
+          <li className="mb-1">{"Type your message in the input area."}</li>
+          <li className="mb-1">
+            {"Press 'Send' or Enter to send your message"}.
+          </li>
+          <li className="mb-1">
+            {"Use the 'Copy' button to copy code snippets."}
+          </li>
           <li className="mb-1">
             Toggle dark mode using the moon/sun icon in the header.
           </li>

@@ -78,6 +78,7 @@ function App() {
     try {
       const chatCompletion = await getGroqChatCompletion(inputMessage);
       const response = chatCompletion.choices[0]?.message?.content || "";
+      console.log("response", response);
 
       setChatHistory((prevChatHistory) => [
         ...prevChatHistory,
@@ -147,7 +148,7 @@ function App() {
           code: ({ children }) => (
             <div className="relative">
               <CopyToClipboard text={children}>
-                <button className="absolute right-0 top-0 mt-2 mr-2 p-1 bg-gray-200 dark:bg-gray-900 hover:opacity-50 border rounded active:border-indigo-300 active:outline-none">
+                <button className="absolute right-0 top-0 mt-2 mr-2 p-1 bg-gray-200 dark:bg-gray-900 hover:opacity-50 border border-gray-500 rounded active:border-indigo-300">
                   Copy
                 </button>
               </CopyToClipboard>
