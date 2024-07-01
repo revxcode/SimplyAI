@@ -78,7 +78,7 @@ function App() {
     try {
       const chatCompletion = await getGroqChatCompletion(inputMessage);
       const response = chatCompletion.choices[0]?.message?.content || "";
-      console.log("response", response);
+      // console.log("response", response);
 
       setChatHistory((prevChatHistory) => [
         ...prevChatHistory,
@@ -152,7 +152,7 @@ function App() {
                   Copy
                 </button>
               </CopyToClipboard>
-              <pre className="bg-gray-200 dark:bg-gray-900 p-2 rounded py-4 px-2 my-2 text-wrap text-gray-600 dark:text-gray-400">
+              <pre className="bg-gray-200 dark:bg-gray-900 p-2 rounded py-4 px-2 my-2 text-wrap text-gray-600 dark:text-gray-400 text-sm">
                 <code>{children}</code>
               </pre>
             </div>
@@ -165,14 +165,14 @@ function App() {
   };
 
   return (
-    <div className={`flex flex-col h-screen ${darkMode ? "dark" : ""}`}>
+    <div className={`flex flex-col min-h-screen ${darkMode ? "dark" : ""}`}>
       <Header
         toggleHelpPopup={toggleHelpPopup}
         toggleDarkMode={toggleDarkMode}
         darkMode={darkMode}
       />
       <div
-        className="flex-grow overflow-y-auto p-4 bg-gray-100 dark:bg-gray-900 duration-200"
+        className="flex-grow overflow-y-auto p-4 bg-gray-100 dark:bg-gray-900 duration-200 overflow-x-hidden max-w-screen-2xl"
         ref={chatContainerRef}
       >
         {chatHistory.map((message, index) => (
