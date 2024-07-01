@@ -1,10 +1,10 @@
-import { useState, useRef, useEffect } from "react";
 import ReactMarkdown from "react-markdown";
 import Groq from "groq-sdk";
-import { CopyToClipboard } from "react-copy-to-clipboard";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import HelpPopup from "@/components/HelpPopup";
+import { useState, useRef, useEffect } from "react";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 
 // eslint-disable-next-line no-unused-vars
 const APP_URL = import.meta.env.APP_URL || "http://localhost:5173/";
@@ -127,7 +127,7 @@ function App() {
             <h1 className="text-2xl font-bold mb-2">{children}</h1>
           ),
           p: ({ children }) => (
-            <p className="text-gray-900 dark:text-gray-100">{children}</p>
+            <p className="text-gray-900 dark:text-gray-100 py-2">{children}</p>
           ),
           a: ({ children, href }) => (
             <a
@@ -151,7 +151,7 @@ function App() {
                   Copy
                 </button>
               </CopyToClipboard>
-              <pre className="bg-gray-200 dark:bg-gray-900 p-2 rounded py-4 px-2 my-2 text-wrap">
+              <pre className="bg-gray-200 dark:bg-gray-900 p-2 rounded py-4 px-2 my-2 text-wrap text-gray-600 dark:text-gray-400">
                 <code>{children}</code>
               </pre>
             </div>
