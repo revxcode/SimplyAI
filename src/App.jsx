@@ -8,7 +8,10 @@ import HelpPopup from "@/components/HelpPopup";
 
 // eslint-disable-next-line no-unused-vars
 const APP_URL = import.meta.env.APP_URL || "http://localhost:5173/";
-const API_KEY = import.meta.env.VITE_APP_GROOQ_API_TOKEN;
+const API_KEY =
+  import.meta.env.VITE_APP_GROOQ_API_TOKEN ||
+  // eslint-disable-next-line no-undef
+  process.env.VITE_APP_GROOQ_API_TOKEN;
 
 const groq = new Groq({
   apiKey: API_KEY || "",
@@ -162,7 +165,6 @@ function App() {
 
   return (
     <div className={`flex flex-col h-screen ${darkMode ? "dark" : ""}`}>
-      <p>{API_KEY}</p>
       <Header
         toggleHelpPopup={toggleHelpPopup}
         toggleDarkMode={toggleDarkMode}
