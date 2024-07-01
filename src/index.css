@@ -1,0 +1,66 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+/*darkmode and lightmode */
+
+:root {
+	--background-color: rgb(255, 255, 255);
+	--text-color: rgb(0, 0, 0);
+}
+
+body {
+	background-color: var(--background-color);
+	color: var(--text-color);
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		--background-color: rgb(0, 0, 0);
+		--text-color: rgb(255, 255, 255);
+	}
+
+	body {
+		background-color: var(--background-color);
+		color: var(--text-color);
+	}
+}
+
+@keyframes slide-in-right {
+	0% {
+		transform: translateX(100%);
+		opacity: 0;
+	}
+	100% {
+		transform: translateX(0);
+		opacity: 1;
+	}
+}
+
+@keyframes slide-in-left {
+	0% {
+		transform: translateX(-100%);
+		opacity: 0;
+	}
+	100% {
+		transform: translateX(0);
+		opacity: 1;
+	}
+}
+
+.animate-slide-in-right {
+	animation: slide-in-right 0.3s ease-out;
+}
+
+.animate-slide-in-left {
+	animation: slide-in-left 0.3s ease-out;
+}
+
+.hidden-scrollbar::-webkit-scrollbar {
+	display: none;
+}
+
+.hidden-scrollbar {
+	-ms-overflow-style: none; /* Internet Explorer 10+ */
+	scrollbar-width: none; /* Firefox */
+}
