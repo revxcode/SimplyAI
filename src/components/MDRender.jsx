@@ -16,6 +16,12 @@ import typescript from "highlight.js/lib/languages/typescript";
 import rust from "highlight.js/lib/languages/rust";
 import kotlin from "highlight.js/lib/languages/kotlin";
 import sql from "highlight.js/lib/languages/sql";
+import xml from "highlight.js/lib/languages/xml";
+import css from "highlight.js/lib/languages/css";
+import bash from "highlight.js/lib/languages/bash";
+import json from "highlight.js/lib/languages/json";
+import yaml from "highlight.js/lib/languages/yaml";
+
 import { useState } from "react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { materialDark } from "react-syntax-highlighter/dist/esm/styles/prism";
@@ -35,6 +41,11 @@ hljs.registerLanguage("typescript", typescript);
 hljs.registerLanguage("rust", rust);
 hljs.registerLanguage("kotlin", kotlin);
 hljs.registerLanguage("sql", sql);
+hljs.registerLanguage("xml", xml);
+hljs.registerLanguage("css", css);
+hljs.registerLanguage("bash", bash);
+hljs.registerLanguage("json", json);
+hljs.registerLanguage("yaml", yaml);
 
 export const MDRender = ({ children }) => {
   // const { markdown } = props;
@@ -61,7 +72,7 @@ export const MDRender = ({ children }) => {
           // console.log(language);
           const [copied, setCopied] = useState(false);
 
-          return (
+          return language != "plaintext" ? (
             <div className="relative">
               <CopyToClipboard
                 text={String(children).replace(/\n$/, "")}
@@ -100,6 +111,10 @@ export const MDRender = ({ children }) => {
                 {String(children).replace(/\n$/, "")}
               </SyntaxHighlighter>
             </div>
+          ) : (
+            <code className="text-sm hover:font-bold hover:text-blue-600 dark:hover:text-yellow-500 duration-200">
+              {children}
+            </code>
           );
         },
         // Common markdown components

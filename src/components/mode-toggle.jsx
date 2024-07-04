@@ -82,9 +82,9 @@ export function ModeToggle() {
           className="p-2 rounded-full bg-gray-200 dark:bg-gray-800 shadow-md focus:outline-none ring-2 ring-blue-500 dark:ring-yellow-500 duration-200"
         >
           {theme === "dark" ? (
-            <SunIcon className="md:h-6 md:w-6 h-4 w-4 text-yellow-400" />
+            <SunIcon className="md:h-6 md:w-6 h-5 w-5 text-yellow-400" />
           ) : (
-            <MoonIcon className="md:h-6 md:w-6 h-4 w-4 text-blue-600" />
+            <MoonIcon className="md:h-6 md:w-6 h-5 w-5 text-blue-600" />
           )}
         </button>
       </div>

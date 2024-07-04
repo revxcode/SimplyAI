@@ -103,43 +103,50 @@ export default function Home() {
 					ref={chatContainerRef}
 					className="relative flex-1 overflow-y-auto p-2 pt-10 md:p-4 rounded-lg space-y-4"
 				>
-					{conversationHistory.map((message, index) => (
-						<div
-							key={index}
-							className={`flex items-start ${
-								message.role === "user"
-									? "flex-row-reverse animate-slide-in-right"
-									: "animate-slide-in-left"
-							}`}
-						>
-							<img
-								src={
-									message.role === "user"
-										? "https://robohash.org/" + message.role
-										: "https://robohash.org/" + message.role
-								}
-								alt={message.role}
-								className={
-									"md:w-10 md:h-10 h-8 w-8 rounded-full border-2 " +
-									(message.role === "user"
-										? "ml-1 border-blue-500 md:block hidden"
-										: "mr-1 border-blue-500 dark:border-yellow-500 md:block hidden")
-								}
-							/>
-							<div
-								className={`max-w-xs ${
-									message.role === "user"
-										? "bg-blue-500 dark:bg-blue-600 text-white overflow-auto md:px-4 pl-4 pr-2 rounded-2xl rounded-tr-none ml-4"
-										: "bg-zinc-100 dark:bg-zinc-900 text-black dark:text-white overflow-auto px-3 rounded-2xl rounded-tl-none ml-2 mr-4"
-								}  md:max-w-2xl relative duration-200`}
-							>
-								<MDRender>{message.content}</MDRender>
-								{message.optimistic && (
-									<Clock className="absolute bottom-1 right-3 w-4 h-4 dark:text-zinc-100 animate-spin" />
-								)}
-							</div>
-						</div>
-					))}
+					{conversationHistory.map(
+						(message, index) => (
+							console.log(message.length),
+							(
+								<div
+									key={index}
+									className={`flex items-start ${
+										message.role === "user"
+											? "flex-row-reverse animate-slide-in-right"
+											: "animate-slide-in-left"
+									}`}
+								>
+									<img
+										src={
+											message.role === "user"
+												? "https://robohash.org/" +
+													message.role
+												: "https://robohash.org/" +
+													message.role
+										}
+										alt={message.role}
+										className={
+											"md:w-10 md:h-10 h-8 w-8 rounded-full border-2 " +
+											(message.role === "user"
+												? "ml-1 border-blue-500 md:block hidden"
+												: "mr-1 border-blue-500 dark:border-yellow-500 md:block hidden")
+										}
+									/>
+									<div
+										className={`max-w-xs ${
+											message.role === "user"
+												? "bg-blue-500 dark:bg-blue-600 text-white overflow-auto md:px-4 pl-4 pr-2 rounded-2xl rounded-tr-none ml-4"
+												: "bg-zinc-100 dark:bg-zinc-900 text-black dark:text-white overflow-auto px-3 rounded-2xl rounded-tl-none ml-2 mr-4"
+										}  md:max-w-2xl relative duration-200`}
+									>
+										<MDRender>{message.content}</MDRender>
+										{message.optimistic && (
+											<Clock className="absolute bottom-1 right-3 w-4 h-4 dark:text-zinc-100 animate-spin" />
+										)}
+									</div>
+								</div>
+							)
+						),
+					)}
 					{conversationHistory.length > 0 && (
 						<div className="absolute p-2 right-4">
 							<button
