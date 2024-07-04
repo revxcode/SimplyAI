@@ -17,7 +17,7 @@ export const ReqToGroq = async (content, model) => {
   // mixtral-8x7b-32768
   // gemma-7b-it
   // whisper-large-v3
-  const defaultModel = "llama3-8b-8192";
+  const defaultModel = "mixtral-8x7b-32768";
   const response = groq.chat.completions.create({
     messages: [
       {

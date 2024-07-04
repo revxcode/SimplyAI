@@ -1,6 +1,6 @@
 import { CircleArrowUp, Clock, XCircle, Trash2 } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
-import { ReqToGpt2 } from "@/utils/gpt-2";
+import { ReqToGroq } from "@/utils/groq";
 import { MDRender } from "./MDRender";
 
 export default function Home() {
@@ -46,7 +46,7 @@ export default function Home() {
 		textarea.value = "";
 
 		try {
-			const aiResponse = await ReqToGpt2(inputValue);
+			const aiResponse = await ReqToGroq(inputValue);
 
 			setTimeout(() => {
 				setConversationHistory((prevHistory) =>
