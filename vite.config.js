@@ -11,6 +11,7 @@ export default defineConfig(({ mode }) => {
       APP_URL: JSON.stringify(env.APP_URL),
       APP_ENV: JSON.stringify(env.APP_ENV),
       VITE_APP_GROOQ_API_TOKEN: JSON.stringify(env.VITE_APP_GROOQ_API_TOKEN),
+      VITE_APP_HF_API_TOKEN: JSON.stringify(env.VITE_APP_HF_API_TOKEN),
     },
     resolve: {
       alias: {
