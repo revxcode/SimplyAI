@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
@@ -7,6 +9,20 @@
 :root {
 	--background-color: rgb(255, 255, 255);
 	--text-color: rgb(0, 0, 0);
+}
+
+::-webkit-scrollbar {
+	width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+	background-color: rgba(0, 0, 0, 0.2);
+	border-radius: 4px;
+}
+
+::-webkit-scrollbar-track {
+	background-color: rgba(0, 0, 0, 0.1);
+	border-radius: 4px;
 }
 
 body {
@@ -25,6 +41,7 @@ body {
 		color: var(--text-color);
 	}
 }
+/* animations */
 
 @keyframes slide-in-right {
 	0% {
@@ -63,4 +80,18 @@ body {
 .hidden-scrollbar {
 	-ms-overflow-style: none;
 	scrollbar-width: none;
+}
+
+.modern-scrollbar::-webkit-scrollbar {
+	width: 8px;
+}
+
+.modern-scrollbar::-webkit-scrollbar-thumb {
+	background-color: rgba(0, 0, 0, 0.2);
+	border-radius: 4px;
+}
+
+.modern-scrollbar::-webkit-scrollbar-track {
+	background-color: rgba(0, 0, 0, 0.1);
+	border-radius: 4px;
 }

@@ -1,6 +1,6 @@
 function Footer() {
   return (
-    <div className="bg-gray-100 dark:bg-gray-900 md:p-4 pb-1 text-center">
+    <div className="bg-zinc-100 dark:bg-zinc-900 py-1 text-center duration-200">
       <p className="text-sm text-gray-500 dark:text-gray-400">
         &copy; 2024 SimplyAI. All rights reserved.
       </p>
