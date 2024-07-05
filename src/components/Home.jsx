@@ -103,7 +103,7 @@ export default function Home() {
 	const showLoadingButton = isSending || showFakeButton;
 
 	return (
-		<section className="w-full h-[90vh] flex items-center justify-center">
+		<section className="w-full h-full flex items-center justify-center">
 			<div className="max-w-7xl w-full h-full mx-auto md:p-4 flex flex-col">
 				<div
 					ref={chatContainerRef}
