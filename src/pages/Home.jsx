@@ -103,11 +103,11 @@ export default function Home() {
 	const showLoadingButton = isSending || showFakeButton;
 
 	return (
-		<section className="w-full flex items-center justify-center">
-			<div className="max-w-7xl w-full h-dvh max-h-[90vh] mx-auto flex flex-col bg-red-500">
+		<section className="w-full h-full flex items-center justify-center">
+			<div className="max-w-7xl w-full h-full mx-auto flex flex-col">
 				<div
 					ref={chatContainerRef}
-					className="relative flex-1 overflow-y-auto p-2 pt-10 md:p-4 rounded-lg space-y-4 bg-red-600"
+					className="relative flex-1 overflow-y-auto p-2 pt-16 rounded-lg space-y-4"
 				>
 					{conversationHistory.map((message, index) => (
 						<div
@@ -168,7 +168,7 @@ export default function Home() {
 						</div>
 					)}
 				</div>
-				<form className="relative flex items-center justify-center w-full mx-auto py-2 px-4">
+				<form className="fixed bottom-0 left-0 right-0 flex items-center justify-center w-full mx-auto py-6 md:px-20 px-4 z-20">
 					<textarea
 						ref={textareaRef}
 						id="inputContent"
@@ -185,7 +185,7 @@ export default function Home() {
 					<button
 						type="button"
 						onClick={handleSubmit}
-						className={`absolute right-6 w-10 h-10 ${
+						className={`absolute right-6 md:right-24 w-10 h-10 ${
 							showLoadingButton
 								? "bg-zinc-400"
 								: "bg-zinc-300 dark:bg-zinc-700"
@@ -211,7 +211,7 @@ export default function Home() {
 						disabled={isSending}
 					/>
 				</form>
-				<div className="flex items-center w-full justify-center py-0.5">
+				<div className="flex items-center w-full justify-center py-2">
 					<span className="text-zinc-500 md:text-xs text-[10px] tracking-wider">
 						SimplyAI may make an error, double check the response.
 					</span>

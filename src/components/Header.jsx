@@ -4,7 +4,7 @@ import { InformationCircleIcon } from "@heroicons/react/24/solid";
 // eslint-disable-next-line react/prop-types
 function Header({ toggleHelpPopup }) {
   return (
-    <div className="flex w-full items-center justify-between bg-zinc-50 dark:bg-zinc-900 px-4 py-3 md:py-4 z-10 duration-200">
+    <div className="fixed flex w-full items-center justify-between bg-zinc-50 dark:bg-zinc-900 px-4 py-3 md:py-4 duration-200 z-20">
       <h1 className="text-lg font-semibold text-white flex items-center">
         <svg
           xmlns="http://www.w3.org/2000/svg"
