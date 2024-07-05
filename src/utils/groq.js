@@ -18,15 +18,18 @@ export const ReqToGroq = async (content, model) => {
   // gemma-7b-it
   // whisper-large-v3
   const defaultModel = "mixtral-8x7b-32768";
-  const response = groq.chat.completions.create({
-    messages: [
-      {
-        role: "user",
-        content,
-      },
-    ],
-    model: model || defaultModel,
-  });
-
-  return (await response).choices[0].message.content;
+  try {
+    const response = groq.chat.completions.create({
+      messages: [
+        {
+          role: "user",
+          content,
+        },
+      ],
+      model: model || defaultModel,
+    });
+    return (await response).choices[0].message.content;
+  } catch (error) {
+    console.log(error);
+  }
 };

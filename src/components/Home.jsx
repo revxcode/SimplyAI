@@ -6,7 +6,8 @@ import {
 	MessageCircleOff,
 } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
-import { ReqToGroq } from "@/utils/groq";
+import { ReqToGemini } from "@/utils/gemini";
+// import { ReqToGroq } from "@/utils/groq";
 import { MDRender } from "./MDRender";
 
 export default function Home() {
@@ -52,7 +53,7 @@ export default function Home() {
 		textarea.value = "";
 
 		try {
-			const aiResponse = await ReqToGroq(inputValue);
+			const aiResponse = await ReqToGemini(inputValue);
 
 			setTimeout(() => {
 				setConversationHistory((prevHistory) =>
@@ -141,7 +142,7 @@ export default function Home() {
 							>
 								<MDRender>{message.content}</MDRender>
 								{message.optimistic && (
-									<Clock className="absolute bottom-1 right-3 w-4 h-4 dark:text-zinc-100 animate-spin" />
+									<Clock className="absolute bottom-1 right-3 w-3 h-3 dark:text-zinc-100 animate-spin" />
 								)}
 							</div>
 						</div>
@@ -161,8 +162,8 @@ export default function Home() {
 						</div>
 					) : (
 						<div className="flex flex-col items-center justify-center h-full md:gap-4">
-							<MessageCircleOff className="w-1/3 h-1/3 text-zinc-200 dark:text-zinc-800" />
-							<span className="font-extrabold md:text-2xl text-xl text-zinc-300 dark:text-zinc-700">
+							<MessageCircleOff className="w-1/3 h-1/3 text-zinc-200 dark:text-zinc-800 duration-200" />
+							<span className="font-extrabold md:text-2xl text-xl text-zinc-300 dark:text-zinc-700 duration-200">
 								Start by asking me something
 							</span>
 						</div>
@@ -198,7 +199,7 @@ export default function Home() {
 									isSending
 										? "text-zinc-700 dark:text-zinc-500"
 										: "text-zinc-500 dark:text-zinc-300"
-								} w-8 h-8 group-hover:text-zinc-700 dark:group-hover:text-zinc-100 duration-200`}
+								} w-8 h-8 group-hover:text-zinc-700 dark:group-hover:text-zinc-100 duration-200 rotate-90`}
 							/>
 						) : (
 							<XCircle className="w-5 h-5 text-red-500" />

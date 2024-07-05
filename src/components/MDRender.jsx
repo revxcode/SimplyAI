@@ -48,31 +48,16 @@ hljs.registerLanguage("json", json);
 hljs.registerLanguage("yaml", yaml);
 
 export const MDRender = ({ children }) => {
-  // const { markdown } = props;
-
-  // console.log(children);
-
   return (
     <Markdown
       children={children}
       components={{
-        // Custom code block rendering for syntax highlighting
-        code(props) {
-          const { children, className, ...rest } = props;
-          let language = className?.replace(/language-/, "");
-          if (!language) {
-            // Try to detect language if not provided
-            const autoDetectResult = hljs.highlightAuto(children);
-            language = autoDetectResult.language;
-          }
-          // Only allow specified languages
-          if (!language || !hljs.getLanguage(language)) {
-            language = "plaintext"; // Default to plaintext if language not found or allowed
-          }
-          // console.log(language);
+        code({ node, inline, className, children, ...props }) {
           const [copied, setCopied] = useState(false);
+          const match = /language-(\w+)/.exec(className || "");
+          const language = match ? match[1] : "";
 
-          return language != "plaintext" ? (
+          return !inline && match ? (
             <div className="relative">
               <CopyToClipboard
                 text={String(children).replace(/\n$/, "")}
@@ -98,15 +83,13 @@ export const MDRender = ({ children }) => {
                 </button>
               </CopyToClipboard>
               <SyntaxHighlighter
-                {...rest}
-                language={language}
-                s
                 style={materialDark}
-                className="my-4 rounded-lg shadow-lg bg-red-400" // Example TailwindCSS classes for syntax highlight block
+                language={language}
+                PreTag="div"
                 codeTagProps={{
                   className: `language-${language} text-xs`,
                 }}
-                PreTag="div"
+                className="my-4 rounded-lg shadow-lg bg-red-400"
               >
                 {String(children).replace(/\n$/, "")}
               </SyntaxHighlighter>
@@ -117,89 +100,90 @@ export const MDRender = ({ children }) => {
             </code>
           );
         },
-        // Common markdown components
-        h1(props) {
-          return <h1 className="text-3xl font-bold my-4" {...props} />;
+        h1({ children }) {
+          return <h1 className="text-3xl font-bold my-4">{children}</h1>;
         },
-        h2(props) {
-          return <h2 className="text-2xl font-bold my-3" {...props} />;
+        h2({ children }) {
+          return <h2 className="text-2xl font-bold my-3">{children}</h2>;
         },
-        h3(props) {
-          return <h3 className="text-xl font-bold my-3" {...props} />;
+        h3({ children }) {
+          return <h3 className="text-xl font-bold my-3">{children}</h3>;
         },
-        h4(props) {
-          return <h4 className="text-lg font-bold my-2" {...props} />;
+        h4({ children }) {
+          return <h4 className="text-lg font-bold my-2">{children}</h4>;
         },
-        h5(props) {
-          return <h5 className="text-base font-bold my-2" {...props} />;
+        h5({ children }) {
+          return <h5 className="text-base font-bold my-2">{children}</h5>;
         },
-        h6(props) {
-          return <h6 className="text-sm font-bold my-2" {...props} />;
+        h6({ children }) {
+          return <h6 className="text-sm font-bold my-2">{children}</h6>;
         },
-        p(props) {
-          return <p className="text-base my-4 leading-relaxed" {...props} />;
+        p({ children }) {
+          return <p className="text-base my-4 leading-relaxed">{children}</p>;
         },
-        ul(props) {
-          return <ul className="list-disc list-inside my-3" {...props} />;
+        ul({ children }) {
+          return <ul className="list-disc list-inside my-3">{children}</ul>;
         },
-        ol(props) {
-          return <ol className="list-decimal list-inside my-3" {...props} />;
+        ol({ children }) {
+          return <ol className="list-decimal list-inside my-3">{children}</ol>;
         },
-        li(props) {
-          return <li className="my-1 py-0.5" {...props} />;
+        li({ children }) {
+          return <li className="my-1 py-0.5">{children}</li>;
         },
-        img(props) {
-          return <img className="my-4 rounded-lg shadow-lg" {...props} />;
+        img({ src, alt }) {
+          return (
+            <img className="my-4 rounded-lg shadow-lg" src={src} alt={alt} />
+          );
         },
-        a(props) {
+        a({ href, children }) {
           return (
             <a
               className="text-blue-500 hover:underline"
               target="_blank"
-              {...props}
-            />
+              href={href}
+            >
+              {children}
+            </a>
           );
         },
-        blockquote(props) {
+        blockquote({ children }) {
           return (
-            <blockquote
-              className="border-l-4 border-gray-300 pl-4 my-4 italic"
-              {...props}
-            />
+            <blockquote className="border-l-4 border-gray-300 pl-4 my-4 italic">
+              {children}
+            </blockquote>
           );
         },
-        hr(props) {
-          return <hr className="my-4 border-gray-300" {...props} />;
+        hr() {
+          return <hr className="my-4 border-gray-300" />;
         },
-        table(props) {
+        table({ children }) {
           return (
-            <table
-              className="my-4 border-collapse border border-gray-300"
-              {...props}
-            />
+            <table className="my-4 border-collapse border border-gray-300">
+              {children}
+            </table>
           );
         },
-        tbody(props) {
-          return <tbody className="divide-y divide-gray-300" {...props} />;
+        tbody({ children }) {
+          return <tbody className="divide-y divide-gray-300">{children}</tbody>;
         },
-        td(props) {
-          return <td className="border border-gray-300 px-4 py-2" {...props} />;
-        },
-        th(props) {
+        td({ children }) {
           return (
-            <th
-              className="border border-gray-300 px-4 py-2 bg-gray-100"
-              {...props}
-            />
+            <td className="border border-gray-300 px-4 py-2">{children}</td>
           );
         },
-        thead(props) {
-          return <thead className="bg-gray-200" {...props} />;
+        th({ children }) {
+          return (
+            <th className="border border-gray-300 px-4 py-2 bg-gray-100">
+              {children}
+            </th>
+          );
         },
-        tr(props) {
-          return <tr className="bg-white" {...props} />;
+        thead({ children }) {
+          return <thead className="bg-gray-200">{children}</thead>;
         },
-        // Add more components as needed based on your Markdown content
+        tr({ children }) {
+          return <tr className="bg-white">{children}</tr>;
+        },
       }}
     />
   );

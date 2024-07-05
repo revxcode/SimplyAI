@@ -5,52 +5,44 @@ function HelpPopup({ toggleHelpPopup }) {
   return (
     <div className="fixed inset-0 flex items-center justify-center z-20">
       <div className="fixed inset-0 bg-black opacity-50"></div>
-      <div className="bg-white dark:bg-zinc-800 p-8 rounded-lg z-30 w-11/12 max-w-lg mx-auto duration-200">
-        <div className="flex w-full justify-end">
-          <button
-            onClick={toggleHelpPopup}
-            className="mt-4 text-white font-bold rounded-lg duration-200 focus:outline-none"
-          >
-            <XCircle />
-          </button>
-        </div>
-        <h2 className="text-xl font-bold mb-4 text-zinc-900 dark:text-zinc-100">
-          Help
-        </h2>
-        <ul className="list-disc pl-5 text-zinc-900 dark:text-zinc-100 text-sm leading-relaxed">
-          <li className="mb-1">{"Type your message in the input area."}</li>
-          <li className="mb-1">
-            {"Press 'Send' or Enter to send your message"}.
-          </li>
-          <li className="mb-1">
-            {"Use the 'Copy' button to copy code snippets."}
-          </li>
-          <li className="mb-1">
-            {
-              "Toggle dark mode using the moon/sun icon and the toggle can also be dragged."
-            }
-          </li>
-          <li className="mb-1">
-            {"Scroll up to view previous messages in the chat history."}
-          </li>
-        </ul>
-        <div className="w-full flex items-center justify-around min-h-6 mt-4">
-          <a
-            href="https://github.com/revenue-official"
-            target="_blank"
-            className="w-5 h-5"
-          >
-            <svg
-              role="img"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="currentColor"
-              className="w-10 h-10 text-zinc-900 dark:text-zinc-100"
-            >
-              <title>GitHub: revenue-official</title>
-              <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
-            </svg>
-          </a>
+      <div className="relative md:max-w-3xl mx-2 w-full min-h-64 bg-zinc-100 dark:bg-zinc-900 z-10 rounded-md duration-200 shadow-md">
+        <button
+          className="absolute top-0 right-0 p-4"
+          onClick={toggleHelpPopup}
+        >
+          <XCircle className="w-6 h-6 text-zinc-500" />
+        </button>
+        <div className="p-8">
+          <h2 className="md:text-3xl text-2xl font-semibold text-blue-500 dark:text-yellow-500 font-bebasneue tracking-wider">
+            How to use
+          </h2>
+          <ul className="w-full list-inside text-zinc-700 dark:text-zinc-300 mt-2 font-montserrat text-sm md:text-base">
+            <li className="list-disc">
+              <span className="font-semibold">
+                Type a message in the input box{" "}
+              </span>
+              and click the Send button
+            </li>
+            <li className="list-disc">
+              <span className="font-semibold">
+                The AI will respond in real-time{" "}
+              </span>
+              and display the response in the output box
+            </li>
+            <li className="ml-6">
+              <span className="font-bold">
+                You can also use the shortcuts:{" "}
+              </span>
+              <ul className="list-inside text-zinc-700 dark:text-zinc-300 mt-2 font-montserrat text-xs md:text-sm">
+                <li className="list-disc">Enter : (for Send)</li>
+                <li className="list-disc">Shift + Enter : (for New Lines)</li>
+                <li className="list-disc">
+                  Ctrl + Backspace : (for Delete Lines)
+                </li>
+              </ul>
+            </li>
+          </ul>
+          <div className="w-full"></div>
         </div>
       </div>
     </div>
