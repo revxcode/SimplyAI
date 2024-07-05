@@ -3,10 +3,6 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 
 const API_KEY = import.meta.env.VITE_APP_GEMINI_API_TOKEN;
 
-console.log(import.meta.env.VITE_APP_GEMINI_API_TOKEN);
-
-console.log(process.env.VITE_APP_GEMINI_API_TOKEN);
-
 const gemini = new GoogleGenerativeAI(API_KEY);
 
 export const ReqToGemini = async (content) => {
