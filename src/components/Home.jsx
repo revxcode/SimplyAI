@@ -7,7 +7,6 @@ import {
 } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 import { ReqToGemini } from "@/utils/gemini";
-// import { ReqToGroq } from "@/utils/groq";
 import { MDRender } from "./MDRender";
 
 export default function Home() {

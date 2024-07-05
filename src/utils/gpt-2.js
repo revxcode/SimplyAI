@@ -1,9 +1,7 @@
 /* eslint-disable no-undef */
 import { HfInference } from "@huggingface/inference";
 
-const HF_TOKEN =
-	import.meta.env.VITE_APP_HF_API_TOKEN ||
-	process.env.VITE_APP_GROOQ_API_TOKEN;
+const HF_TOKEN = import.meta.env.VITE_APP_HF_API_TOKEN;
 
 const inference = new HfInference(HF_TOKEN);
 

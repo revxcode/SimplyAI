@@ -2,9 +2,7 @@
 /* eslint-disable no-undef */
 import Groq from "groq-sdk";
 
-const API_KEY =
-  import.meta.env.VITE_APP_GROOQ_API_TOKEN ||
-  process.env.VITE_APP_GROOQ_API_TOKEN;
+const API_KEY = import.meta.env.VITE_APP_GROOQ_API_TOKEN;
 
 const groq = new Groq({
   apiKey: API_KEY,

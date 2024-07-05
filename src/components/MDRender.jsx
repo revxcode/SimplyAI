@@ -2,6 +2,11 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/no-children-prop */
 /* eslint-disable react/prop-types */
+import { useState, lazy } from "react";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { materialDark } from "react-syntax-highlighter/dist/esm/styles/prism";
+import { CopyToClipboard } from "react-copy-to-clipboard";
+import { Copy, Check } from "lucide-react";
 import Markdown from "react-markdown";
 import hljs from "highlight.js/lib/core";
 import javascript from "highlight.js/lib/languages/javascript";
@@ -21,12 +26,6 @@ import css from "highlight.js/lib/languages/css";
 import bash from "highlight.js/lib/languages/bash";
 import json from "highlight.js/lib/languages/json";
 import yaml from "highlight.js/lib/languages/yaml";
-
-import { useState } from "react";
-import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { materialDark } from "react-syntax-highlighter/dist/esm/styles/prism";
-import { CopyToClipboard } from "react-copy-to-clipboard";
-import { Copy, Check } from "lucide-react";
 
 // Register languages for syntax highlighting
 hljs.registerLanguage("javascript", javascript);
