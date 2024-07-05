@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useTheme } from "@/components/theme-provider";
 import { useDrag } from "@use-gesture/react";
 import { useSpring, animated } from "@react-spring/web";
