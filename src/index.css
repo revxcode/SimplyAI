@@ -65,6 +65,11 @@ body {
 	}
 }
 
+.main-container {
+	height: calc(100vh - 56px); /* Sesuaikan dengan tinggi header browser */
+	overflow-y: auto; /* Munculkan scrollbar jika konten melebihi tinggi */
+}
+
 .animate-slide-in-right {
 	animation: slide-in-right 0.3s ease-out;
 }
