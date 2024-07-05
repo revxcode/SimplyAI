@@ -29,7 +29,8 @@ body {
 	margin: 0;
 	padding: 0;
 	height: 100%;
-	background-color: var(--background-color);
+	width: 100%;
+	background-color: red;
 	color: var(--text-color);
 }
 
@@ -46,11 +47,6 @@ body {
 		background-color: var(--background-color);
 		color: var(--text-color);
 	}
-}
-
-.main-container {
-	height: calc(100vh - 56px); /* Sesuaikan dengan tinggi header browser */
-	overflow-y: auto; /* Munculkan scrollbar jika konten melebihi tinggi */
 }
 
 .animate-slide-in-right {
