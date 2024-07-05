@@ -8,6 +8,9 @@ export default {
         bebasneue: ["Bebas Neue", "cursive"],
         montserrat: ["Montserrat", "sans-serif"],
       },
+      height: {
+        dynamic: "calc(var(--vh, 1vh) * 100)",
+      },
     },
   },
   darkMode: "class",
