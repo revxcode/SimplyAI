@@ -11,12 +11,6 @@ export default function MainLayout({ children }) {
 		setShowHelpPopup(!showHelpPopup);
 	};
 	return (
-		<main className="w-full h-screen flex flex-col bg-zinc-50 dark:bg-zinc-900 duration-200">
-			<Header toggleHelpPopup={toggleHelpPopup} />
-			<ModeToggle />
-			{children}
-			{/*<Footer />*/}
-			{showHelpPopup && <HelpPopup toggleHelpPopup={toggleHelpPopup} />}
-		</main>
+		<main className="w-full h-screen flex flex-col bg-zinc-50 dark:bg-zinc-900 duration-200"></main>
 	);
 }
