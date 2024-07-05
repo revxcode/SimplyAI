@@ -30,7 +30,7 @@ export default function MainLayout({ children }) {
 	}, []);
 
 	return (
-		<main className="w-full h-dynamic flex flex-col bg-zinc-50 dark:bg-zinc-900 duration-200 overflow-hidden">
+		<main className="w-full h-dvh flex flex-col bg-zinc-50 dark:bg-zinc-900 duration-200 overflow-hidden">
 			<Header toggleHelpPopup={toggleHelpPopup} />
 			<ModeToggle />
 			{children}
