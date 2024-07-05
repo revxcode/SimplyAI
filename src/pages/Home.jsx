@@ -103,11 +103,11 @@ export default function Home() {
 	const showLoadingButton = isSending || showFakeButton;
 
 	return (
-		<section className="w-full h-full max-h-[90vh] flex items-center justify-center">
-			<div className="max-w-7xl w-full h-full mx-auto flex flex-col">
+		<section className="w-full flex items-center justify-center">
+			<div className="max-w-7xl w-full max-h-[90vh] mx-auto flex flex-col bg-red-500">
 				<div
 					ref={chatContainerRef}
-					className="relative flex-1 overflow-y-auto p-2 pt-10 md:p-4 rounded-lg space-y-4"
+					className="relative flex-1 overflow-y-auto p-2 pt-10 md:p-4 rounded-lg space-y-4 bg-red-600"
 				>
 					{conversationHistory.map((message, index) => (
 						<div
