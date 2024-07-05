@@ -12,7 +12,7 @@ export const ReqToGemini = async (content) => {
 		const result = await model.generateContent(content);
 		const response = result.response;
 		const text = response.text();
-		// console.log(result);
+		// console.log(text);
 
 		return text;
 	} catch (error) {

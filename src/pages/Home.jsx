@@ -1,3 +1,6 @@
+import { useState, useEffect, useRef } from "react";
+import { ReqToGemini } from "@/utils/gemini";
+import { MDRender } from "@/components/MDRender";
 import {
 	CircleArrowUp,
 	Clock,
@@ -5,9 +8,6 @@ import {
 	Trash2,
 	MessageCircleOff,
 } from "lucide-react";
-import { useState, useEffect, useRef } from "react";
-import { ReqToGemini } from "@/utils/gemini";
-import { MDRender } from "./MDRender";
 
 export default function Home() {
 	const [conversationHistory, setConversationHistory] = useState([]);
@@ -27,6 +27,7 @@ export default function Home() {
 
 	useEffect(() => {
 		if (chatContainerRef.current) {
+			// console.log(chatContainerRef.current.scrollHeight);
 			chatContainerRef.current.scrollTo({
 				top: chatContainerRef.current.scrollHeight,
 				behavior: "smooth",
@@ -201,7 +202,7 @@ export default function Home() {
 								} w-8 h-8 group-hover:text-zinc-700 dark:group-hover:text-zinc-100 duration-200 rotate-90`}
 							/>
 						) : (
-							<XCircle className="w-5 h-5 text-red-500" />
+							<XCircle className="w-5 h-5 text-red-500 cursor-wait" />
 						)}
 					</button>
 					<button
@@ -211,6 +212,18 @@ export default function Home() {
 						disabled={isSending}
 					/>
 				</form>
+				<div
+					className={
+						"flex items-center w-full justify-center py-0.5 " +
+						(chatContainerRef.current?.scrollHeight > 741
+							? "mb-20"
+							: "mb-2")
+					}
+				>
+					<span className="text-zinc-500 md:text-xs text-[10px] tracking-wider">
+						SimplyAI may make an error, double check the response.
+					</span>
+				</div>
 			</div>
 		</section>
 	);

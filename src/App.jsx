@@ -1,14 +1,22 @@
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { ThemeProvider } from "@/components/theme-provider";
 import MainLayout from "@/layouts/MainLayout";
-import Home from "./components/Home";
+import Home from "@/pages/Home";
+import Login from "@/pages/Login";
+// import Callback from "@/pages/Callback";
 
-// eslint-disable-next-line react/prop-types
 export default function App() {
   return (
     <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
-      <MainLayout>
-        <Home />
-      </MainLayout>
+      <Router>
+        <MainLayout>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            {/*<Route path="/callback" element={<Callback />} />*/}
+          </Routes>
+        </MainLayout>
+      </Router>
     </ThemeProvider>
   );
 }
