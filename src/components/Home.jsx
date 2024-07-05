@@ -168,7 +168,7 @@ export default function Home() {
 						</div>
 					)}
 				</div>
-				<form className="relative flex items-center justify-center w-full mx-auto pt-2 px-4">
+				<form className="relative flex items-center justify-center w-full mx-auto py-2 px-4">
 					<textarea
 						ref={textareaRef}
 						id="inputContent"
