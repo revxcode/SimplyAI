@@ -10,7 +10,7 @@ export default function MainLayout({ children }) {
 		setShowHelpPopup(!showHelpPopup);
 	};
 	return (
-		<main className="w-full h-dvh flex flex-col bg-zinc-50 dark:bg-zinc-900 duration-200 overflow-hidden">
+		<main className="w-full h-dvh flex flex-col bg-zinc-50 dark:bg-zinc-900 duration-200">
 			<Header toggleHelpPopup={toggleHelpPopup} />
 			<ModeToggle />
 			{children}

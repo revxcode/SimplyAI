@@ -27,7 +27,6 @@ export default function Home() {
 
 	useEffect(() => {
 		if (chatContainerRef.current) {
-			// console.log(chatContainerRef.current.scrollHeight);
 			chatContainerRef.current.scrollTo({
 				top: chatContainerRef.current.scrollHeight,
 				behavior: "smooth",
@@ -104,8 +103,8 @@ export default function Home() {
 	const showLoadingButton = isSending || showFakeButton;
 
 	return (
-		<section className="w-full h-full flex items-center justify-center">
-			<div className="max-w-7xl w-full h-full mx-auto md:p-4 flex flex-col">
+		<section className="w-full h-full max-h-[90vh] flex items-center justify-center">
+			<div className="max-w-7xl w-full h-full mx-auto flex flex-col">
 				<div
 					ref={chatContainerRef}
 					className="relative flex-1 overflow-y-auto p-2 pt-10 md:p-4 rounded-lg space-y-4"
@@ -180,7 +179,7 @@ export default function Home() {
 						style={{
 							paddingTop: "10px",
 							paddingBottom: "10px",
-						}} // Sesuaikan sesuai kebutuhan
+						}}
 						required
 					/>
 					<button
@@ -212,14 +211,7 @@ export default function Home() {
 						disabled={isSending}
 					/>
 				</form>
-				<div
-					className={
-						"flex items-center w-full justify-center py-0.5 " +
-						(chatContainerRef.current?.scrollHeight > 741
-							? "mb-20"
-							: "mb-2")
-					}
-				>
+				<div className="flex items-center w-full justify-center py-0.5">
 					<span className="text-zinc-500 md:text-xs text-[10px] tracking-wider">
 						SimplyAI may make an error, double check the response.
 					</span>
