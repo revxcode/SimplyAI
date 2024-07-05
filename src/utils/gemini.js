@@ -5,6 +5,9 @@ const API_KEY =
 	import.meta.env.VITE_APP_GEMINI_API_TOKEN ||
 	process.env.VITE_APP_GEMINI_API_TOKEN;
 
+console.log("API_KEY from VITE" + import.meta.env.VITE_APP_GEMINI_API_TOKEN);
+console.log("API_KEY from env" + process.env.VITE_APP_GEMINI_API_TOKEN);
+
 const gemini = new GoogleGenerativeAI(API_KEY);
 
 export const ReqToGemini = async (content) => {
