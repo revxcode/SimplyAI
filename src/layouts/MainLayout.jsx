@@ -11,6 +11,21 @@ export default function MainLayout({ children }) {
 		setShowHelpPopup(!showHelpPopup);
 	};
 	return (
-		<main className="w-full min-h-screen flex flex-col duration-200"></main>
+		<div className="h-screen w-full flex flex-col bg-gray-100">
+			<header className="bg-blue-600 text-white p-4 text-center">
+				<h1 className="text-xl font-bold">Chat Bot App</h1>
+			</header>
+			<main className="flex-grow p-4 overflow-y-auto">
+				<div className="flex flex-col items-center space-y-4">
+					<div className="bg-white p-4 rounded shadow">
+						<p>Welcome to the Chat Bot!</p>
+					</div>
+					{/* Add chat components here */}
+				</div>
+			</main>
+			<footer className="bg-gray-800 text-white p-4 text-center">
+				<p>&copy; 2024 Chat Bot App</p>
+			</footer>
+		</div>
 	);
 }
