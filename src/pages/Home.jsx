@@ -107,7 +107,7 @@ export default function Home() {
 			<div className="max-w-7xl w-full h-full mx-auto flex flex-col">
 				<div
 					ref={chatContainerRef}
-					className="relative flex-1 overflow-y-auto p-2 pt-16 rounded-lg space-y-4"
+					className="relative flex-1 overflow-y-auto px-2 pt-16 rounded-lg space-y-4"
 				>
 					{conversationHistory.map((message, index) => (
 						<div

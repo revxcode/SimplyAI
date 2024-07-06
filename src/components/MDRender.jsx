@@ -118,7 +118,11 @@ export const MDRender = ({ children }) => {
           return <h6 className="text-sm font-bold my-2">{children}</h6>;
         },
         p({ children }) {
-          return <p className="text-base my-4 leading-relaxed">{children}</p>;
+          return (
+            <p className="text-sm md:text-base mt-2 mb-3 leading-relaxed">
+              {children}
+            </p>
+          );
         },
         ul({ children }) {
           return <ul className="list-disc list-inside my-3">{children}</ul>;
