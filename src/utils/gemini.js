@@ -1,21 +1,21 @@
-/* eslint-disable no-undef */
-import { GoogleGenerativeAI } from "@google/generative-ai";
-
-const API_KEY = import.meta.env.VITE_APP_GEMINI_API_TOKEN;
-
-const gemini = new GoogleGenerativeAI(API_KEY);
+import axios from "axios";
 
 export const ReqToGemini = async (content) => {
 	try {
-		const model = gemini.getGenerativeModel({ model: "gemini-1.5-flash" });
+		const response = await axios.post(
+			"http://localhost:3100/api/gemini",
+			{
+				content: content,
+			},
+			{
+				headers: {
+					"Content-Type": "application/json",
+				},
+			},
+		);
 
-		const result = await model.generateContent(content);
-		const response = result.response;
-		const text = response.text();
-		// console.log(text);
-
-		return text;
+		return response.data.text;
 	} catch (error) {
-		console.log(error);
+		console.error("There was a problem with the axios operation:", error);
 	}
 };

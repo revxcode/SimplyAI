@@ -100,48 +100,60 @@ export const MDRender = ({ children }) => {
           );
         },
         h1({ children }) {
-          return <h1 className="text-3xl font-bold my-4">{children}</h1>;
+          return <h1 className="text-3xl font-bold my-3">{children}</h1>;
         },
         h2({ children }) {
           return <h2 className="text-2xl font-bold my-3">{children}</h2>;
         },
         h3({ children }) {
-          return <h3 className="text-xl font-bold my-3">{children}</h3>;
+          return <h3 className="text-xl font-bold my-2">{children}</h3>;
         },
         h4({ children }) {
           return <h4 className="text-lg font-bold my-2">{children}</h4>;
         },
         h5({ children }) {
-          return <h5 className="text-base font-bold my-2">{children}</h5>;
+          return <h5 className="text-base font-bold my-1">{children}</h5>;
         },
         h6({ children }) {
-          return <h6 className="text-sm font-bold my-2">{children}</h6>;
+          return <h6 className="text-sm font-bold my-1">{children}</h6>;
         },
         p({ children }) {
           return (
-            <p className="text-sm md:text-base mt-2 mb-3 leading-relaxed">
+            <p className="text-xs md:text-sm my-2 leading-relaxed">
               {children}
             </p>
           );
         },
         ul({ children }) {
-          return <ul className="list-disc list-inside my-3">{children}</ul>;
+          return (
+            <ul className="text-xs md:text-sm list-disc list-inside my-2">
+              {children}
+            </ul>
+          );
         },
         ol({ children }) {
-          return <ol className="list-decimal list-inside my-3">{children}</ol>;
+          return (
+            <ol className="text-xs md:text-sm list-decimal list-inside my-2">
+              {children}
+            </ol>
+          );
         },
         li({ children }) {
-          return <li className="my-1 py-0.5">{children}</li>;
+          return <li className="my-0.5 py-0.5">{children}</li>;
         },
         img({ src, alt }) {
           return (
-            <img className="my-4 rounded-lg shadow-lg" src={src} alt={alt} />
+            <img
+              className="my-2 md:my-4 rounded-lg shadow-lg"
+              src={src}
+              alt={alt}
+            />
           );
         },
         a({ href, children }) {
           return (
             <a
-              className="text-blue-500 hover:underline"
+              className="text-xs md:text-sm text-blue-500 hover:underline"
               target="_blank"
               href={href}
             >
@@ -151,17 +163,17 @@ export const MDRender = ({ children }) => {
         },
         blockquote({ children }) {
           return (
-            <blockquote className="border-l-4 border-gray-300 pl-4 my-4 italic">
+            <blockquote className="border-l-4 border-gray-300 pl-2 my-2 italic">
               {children}
             </blockquote>
           );
         },
         hr() {
-          return <hr className="my-4 border-gray-300" />;
+          return <hr className="my-2 border-gray-300" />;
         },
         table({ children }) {
           return (
-            <table className="my-4 border-collapse border border-gray-300">
+            <table className="my-2 border-collapse border border-gray-300">
               {children}
             </table>
           );

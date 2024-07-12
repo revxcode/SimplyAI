@@ -6,6 +6,11 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd());
   return {
     plugins: [react()],
+    server: {
+      proxy: {
+        "/api": "http://localhost:3100",
+      },
+    },
     define: {
       // default
       APP_NAME: JSON.stringify(env.APP_NAME),

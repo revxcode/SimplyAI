@@ -79,7 +79,7 @@ export function ModeToggle() {
           onMouseUp={handleOnMouseUp}
           onTouchStart={handleOnTouchStart}
           onTouchEnd={handleOnTouchEnd}
-          className="p-2 rounded-full bg-zinc-200 dark:bg-zinc-800 shadow-md focus:outline-none ring-2 ring-blue-500 dark:ring-yellow-500 duration-200"
+          className="p-2 rounded-full bg-zinc-100 dark:bg-zinc-900 shadow-md focus:outline-none ring-2 ring-blue-500 dark:ring-yellow-500 duration-200"
         >
           {theme === "dark" ? (
             <SunIcon className="md:h-6 md:w-6 h-5 w-5 text-yellow-400" />

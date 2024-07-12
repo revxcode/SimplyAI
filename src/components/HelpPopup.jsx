@@ -5,12 +5,12 @@ function HelpPopup({ toggleHelpPopup }) {
   return (
     <div className="fixed inset-0 flex items-center justify-center z-20">
       <div className="fixed inset-0 bg-black opacity-50"></div>
-      <div className="relative md:max-w-3xl mx-2 w-full min-h-64 bg-zinc-100 dark:bg-zinc-900 z-10 rounded-md duration-200 shadow-md">
+      <div className="relative md:max-w-3xl mx-2 w-full min-h-64 bg-zinc-100 dark:bg-zinc-800 z-10 rounded-md duration-200 shadow-md">
         <button
           className="absolute top-0 right-0 p-4"
           onClick={toggleHelpPopup}
         >
-          <XCircle className="w-6 h-6 text-zinc-500" />
+          <XCircle className="w-8 h-8 text-zinc-500" />
         </button>
         <div className="p-8">
           <h2 className="md:text-3xl text-2xl font-semibold text-blue-500 dark:text-yellow-500 font-bebasneue tracking-wider">
