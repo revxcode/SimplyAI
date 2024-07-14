@@ -31,7 +31,7 @@ function Header({ toggleHelpPopup }) {
       <div className="flex items-center space-x-4">
         <button
           onClick={toggleHelpPopup}
-          className="text-blue-500 focus:outline-none z-20"
+          className="text-blue-500 dark:text-yellow-500 focus:outline-none z-20"
         >
           <InformationCircleIcon className="h-6 w-6" />
         </button>

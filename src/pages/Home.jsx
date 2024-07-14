@@ -1,5 +1,6 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import { useState, useEffect, useRef } from "react";
-import { ReqToGemini } from "@/utils/gemini";
+import { useGeminiAI } from "@/utils/gemini";
 import { MDRender } from "@/components/MDRender";
 import { CircleArrowUp, Clock, XCircle, Trash2 } from "lucide-react";
 
@@ -46,8 +47,7 @@ export default function Home() {
 		textarea.value = "";
 
 		try {
-			const aiResponse = await ReqToGemini(inputValue);
-
+			const aiResponse = await useGeminiAI(inputValue);
 			setTimeout(() => {
 				setConversationHistory((prevHistory) =>
 					prevHistory.map((message) =>

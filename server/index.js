@@ -38,27 +38,6 @@ app.post("/api/gemini", async (req, res) => {
 	}
 });
 
-// // ANTHROPIC
-// const ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY;
-// // console.log(ANTHROPIC_API_KEY);
-// const anthropic = new Anthropic({
-// 	apiKey: ANTHROPIC_API_KEY,
-// });
-
-// app.post("/api/anthropic", async (req, res) => {
-// 	try {
-// 		const result = await anthropic.messages.create({
-// 			model: "claude-3-5-sonnet-20240620",
-// 			max_tokens: 1000,
-// 			messages: [{ role: "user", content: req.body.content }],
-// 		});
-// 		console.log(result);
-// 		// res.json({ text: msg });
-// 	} catch (error) {
-// 		res.status(500).json({ error: error.message });
-// 	}
-// });
-
 app.listen(port, () => {
 	console.log(`Server is running on port ${port}`);
 });

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const ReqToGemini = async (content) => {
+export const useGeminiAI = async (content) => {
 	try {
 		const response = await axios.post(
 			"http://localhost:3100/api/gemini",
