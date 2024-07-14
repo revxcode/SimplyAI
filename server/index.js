@@ -1,6 +1,5 @@
 /* eslint-disable no-undef */
 import { GoogleGenerativeAI } from "@google/generative-ai";
-// import Anthropic from "@anthropic-ai/sdk";
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
@@ -28,9 +27,10 @@ const chat = model.startChat({
 
 app.post("/api/gemini", async (req, res) => {
 	try {
-		const result = await chat.sendMessageStream(req.body.content);
+		const result = await chat.sendMessage(req.body.content);
 		const response = await result.response;
 		const text = response.text();
+		// console.log(text);
 
 		res.json({ text });
 	} catch (error) {

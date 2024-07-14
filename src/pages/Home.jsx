@@ -48,6 +48,7 @@ export default function Home() {
 
 		try {
 			const aiResponse = await useGeminiAI(inputValue);
+
 			setTimeout(() => {
 				setConversationHistory((prevHistory) =>
 					prevHistory.map((message) =>
@@ -108,7 +109,7 @@ export default function Home() {
 							key={index}
 							className={`flex items-start ${
 								message.role === "user"
-									? "flex-row-reverse animate-slide-in-right"
+									? "md:flex-row-reverse animate-slide-in-right"
 									: "animate-slide-in-left"
 							}`}
 						>
@@ -122,14 +123,14 @@ export default function Home() {
 								className={
 									"md:w-10 md:h-10 h-8 w-8 rounded-full border-2  " +
 									(message.role === "user"
-										? "ml-1 border-blue-500 md:block hidden"
+										? "ml-1 border-blue-500"
 										: "mr-1 border-blue-500 dark:border-yellow-500 md:block hidden")
 								}
 							/>
 							<div
 								className={`max-w-xs ${
 									message.role === "user"
-										? "bg-blue-500 dark:bg-blue-600 text-white overflow-auto md:px-4 pl-4 pr-2 rounded-2xl md:rounded-tr-none md:ml-4 py-1"
+										? "bg-blue-500 dark:bg-blue-600 text-white overflow-auto md:px-4 pl-4 pr-2 rounded-2xl rounded-tl-none md:rounded-tr-none md:ml-4 py-1 mx-1"
 										: "bg-inherit dark:bg-bg-inherit text-black dark:text-white overflow-auto px-3 rounded-2xl md:rounded-tl-none md:ml-2 md:mr-4"
 								} mt-4 w-full md:max-w-2xl md:w-fit relative duration-200`}
 							>
