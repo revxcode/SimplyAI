@@ -94,7 +94,7 @@ export const MDRender = ({ children }) => {
               </SyntaxHighlighter>
             </div>
           ) : (
-            <code className="text-sm hover:font-bold hover:text-blue-600 dark:hover:text-yellow-500 duration-200">
+            <code className="text-xs md:text-sm hover:font-bold hover:text-blue-600 dark:hover:text-yellow-500 duration-200">
               {children}
             </code>
           );

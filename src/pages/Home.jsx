@@ -2,7 +2,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useGeminiAI } from "@/utils/gemini";
 import { MDRender } from "@/components/MDRender";
-import { CircleArrowUp, Clock, XCircle, Trash2 } from "lucide-react";
+import { CircleArrowUp, Clock, Trash2 } from "lucide-react";
 
 export default function Home() {
 	const [conversationHistory, setConversationHistory] = useState([]);
@@ -41,34 +41,40 @@ export default function Home() {
 			optimistic: true,
 		};
 
+		const assistantPendingMessage = {
+			role: "assistant",
+			content: "Answering...",
+			optimistic: true,
+		};
+
 		setIsSending(true);
-		setConversationHistory((prevHistory) => [...prevHistory, newMessage]);
+		setConversationHistory((prevHistory) => [
+			...prevHistory,
+			newMessage,
+			assistantPendingMessage,
+		]);
 
 		textarea.value = "";
 
 		try {
-			const aiResponse = await useGeminiAI(inputValue);
+			const assistantResponse = await useGeminiAI(inputValue);
 
-			setTimeout(() => {
-				setConversationHistory((prevHistory) =>
-					prevHistory.map((message) =>
-						message === newMessage
-							? { ...message, optimistic: false }
-							: message,
-					),
+			setConversationHistory((prevHistory) => {
+				const updatedHistory = prevHistory.map((message) =>
+					message === assistantPendingMessage
+						? { role: "assistant", content: assistantResponse }
+						: message,
 				);
 
-				setConversationHistory((prevHistory) => [
-					...prevHistory,
-					{
-						role: "assistant",
-						content: aiResponse,
-					},
-				]);
+				return updatedHistory.map((message) =>
+					message === newMessage
+						? { ...message, optimistic: false }
+						: message,
+				);
+			});
 
-				setIsSending(false);
-				setShowFakeButton(false); // Hapus tombol palsu setelah selesai
-			}, 2000);
+			setIsSending(false);
+			setShowFakeButton(false); // Hapus tombol palsu setelah selesai
 		} catch (error) {
 			console.error(error);
 			setIsSending(false);
@@ -130,14 +136,11 @@ export default function Home() {
 							<div
 								className={`max-w-xs ${
 									message.role === "user"
-										? "bg-blue-500 dark:bg-blue-600 text-white overflow-auto md:px-4 pl-4 pr-2 rounded-2xl rounded-tl-none md:rounded-tr-none md:ml-4 py-1 mx-1"
+										? "bg-blue-500 dark:bg-blue-600 text-white overflow-auto md:px-4 pl-4 pr-2 rounded-2xl rounded-tl-none md:rounded-tl-2xl md:rounded-tr-none md:ml-4 py-1 mx-1"
 										: "bg-inherit dark:bg-bg-inherit text-black dark:text-white overflow-auto px-3 rounded-2xl md:rounded-tl-none md:ml-2 md:mr-4"
 								} mt-4 w-full md:max-w-2xl md:w-fit relative duration-200`}
 							>
 								<MDRender>{message.content}</MDRender>
-								{message.optimistic && (
-									<Clock className="absolute bottom-1 right-3 w-3 h-3 dark:text-zinc-100 animate-spin" />
-								)}
 							</div>
 						</div>
 					))}
@@ -196,7 +199,7 @@ export default function Home() {
 								} w-8 h-8 group-hover:text-zinc-700 dark:group-hover:text-zinc-100 duration-200 rotate-90`}
 							/>
 						) : (
-							<XCircle className="w-8 h-8 text-red-500 cursor-wait" />
+							<Clock className="w-8 h-8 text-zinc-600 cursor-wait animate-spin" />
 						)}
 					</button>
 					<button
