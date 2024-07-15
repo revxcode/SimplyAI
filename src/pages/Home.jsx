@@ -29,9 +29,9 @@ export default function Home() {
 		}
 	}, [conversationHistory]);
 
-	const handleSubmit = async () => {
+	const handleSubmit = async (value) => {
 		const textarea = document.getElementById("inputContent");
-		const inputValue = textarea.value.trim();
+		const inputValue = textarea.value.trim() || value;
 
 		if (!inputValue) return;
 
@@ -161,8 +161,11 @@ export default function Home() {
 						<div className="flex items-center justify-center h-full md:gap-4">
 							<button
 								type="button"
-								className="w-full px-4 md:max-w-xs h-36 bg-gradient-to-tr from-zinc-100 to-zinc-200 dark:from-zinc-800 dark:to-zinc-900 text-zinc-900 rounded-2xl md:rounded-lg flex items-center justify-center duration-200"
-							></button>
+								className="w-full px-4 md:max-w-xs h-36 bg-gradient-to-tr from-zinc-100 to-zinc-200 dark:from-zinc-800 dark:to-zinc-900 text-zinc-700 dark:text-zinc-300 rounded-2xl md:rounded-lg flex items-center justify-center duration-300 mx-10"
+								onClick={() => handleSubmit("Hallo SimplyAI")}
+							>
+								Welcome to SimplyAI
+							</button>
 						</div>
 					)}
 				</div>

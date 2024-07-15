@@ -6,16 +6,7 @@ export const useGeminiAI = async (content) => {
 	const genAI = new GoogleGenerativeAI(API_KEY);
 	const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 	const chat = model.startChat({
-		history: [
-			{
-				role: "user",
-				parts: [
-					{
-						text: "My name is Teguh Ersyarudin, github name revenue-official",
-					},
-				],
-			},
-		],
+		history: [],
 	});
 
 	try {
