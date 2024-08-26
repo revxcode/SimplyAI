@@ -1,115 +1,107 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import { useState, useEffect, useRef } from "react";
-import { useGeminiAI } from "@/utils/gemini";
-import { MDRender } from "@/components/MDRender";
-import { CircleArrowUp, Clock, Trash2 } from "lucide-react";
+import { useState, useEffect, useRef } from "react"
+import { useGeminiAI } from "@/utils/gemini"
+import { MDRender } from "@/components/MDRender"
+import { CircleArrowUp, Clock, Trash2 } from "lucide-react"
+import { useConversationHistorys } from "@/stores/StoreConversationHistorys"
 
 export default function Home() {
-	const [conversationHistory, setConversationHistory] = useState([]);
-	const [isSending, setIsSending] = useState(false);
-	const [showFakeButton, setShowFakeButton] = useState(false);
+	const { conversationHistory, setConversationHistory } = useConversationHistorys()
+	const [isSending, setIsSending] = useState(false)
+	const [showFakeButton, setShowFakeButton] = useState(false)
+	const generateResponse = useGeminiAI()
 
-	const textareaRef = useRef(null);
-	const chatContainerRef = useRef(null);
-	const fakeButtonTimeoutRef = useRef(null);
+	const textareaRef = useRef(null)
+	const chatContainerRef = useRef(null)
+	const fakeButtonTimeoutRef = useRef(null)
 
 	useEffect(() => {
 		if (textareaRef.current) {
-			textareaRef.current.style.height = "auto"; // Reset height
-			textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+			textareaRef.current.style.height = "auto" // Reset height
+			textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`
 		}
-	}, []);
+	}, [])
 
 	useEffect(() => {
 		if (chatContainerRef.current) {
 			chatContainerRef.current.scrollTo({
 				top: chatContainerRef.current.scrollHeight,
 				behavior: "smooth",
-			});
+			})
 		}
-	}, [conversationHistory]);
+	}, [conversationHistory])
 
 	const handleSubmit = async (value) => {
-		const textarea = document.getElementById("inputContent");
-		const inputValue = textarea.value.trim() || value;
+		const textarea = document.getElementById("inputContent")
+		const inputValue = textarea.value.trim() || value
 
-		if (!inputValue) return;
+		if (!inputValue) return
 
 		const newMessage = {
 			role: "user",
 			content: inputValue,
 			optimistic: true,
-		};
+		}
 
 		const assistantPendingMessage = {
 			role: "assistant",
 			content: "Answering...",
 			optimistic: true,
-		};
+		}
 
-		setIsSending(true);
-		setConversationHistory((prevHistory) => [
-			...prevHistory,
-			newMessage,
-			assistantPendingMessage,
-		]);
+		setIsSending(true)
+		setConversationHistory([...conversationHistory, newMessage, assistantPendingMessage])
 
-		textarea.value = "";
+		textarea.value = ""
 
 		try {
-			const assistantResponse = await useGeminiAI(inputValue);
+			const assistantResponse = await generateResponse(inputValue)
 
-			setConversationHistory((prevHistory) => {
-				const updatedHistory = prevHistory.map((message) =>
-					message === assistantPendingMessage
-						? { role: "assistant", content: assistantResponse }
-						: message,
-				);
+			if (assistantResponse) {
+				setConversationHistory([
+					...conversationHistory,
+					newMessage,
+					{
+						role: "assistant",
+						content: assistantResponse,
+					},
+				])
+			}
 
-				return updatedHistory.map((message) =>
-					message === newMessage
-						? { ...message, optimistic: false }
-						: message,
-				);
-			});
-
-			setIsSending(false);
-			setShowFakeButton(false); // Hapus tombol palsu setelah selesai
+			setIsSending(false)
+			setShowFakeButton(false) // Hapus tombol palsu setelah selesai
 		} catch (error) {
-			console.error(error);
-			setIsSending(false);
+			console.error(error)
+			setIsSending(false)
 		}
-	};
+	}
 
 	const handleKeyDown = (e) => {
 		if (e.key === "Enter" && !e.shiftKey) {
-			e.preventDefault();
-			handleSubmit();
+			e.preventDefault()
+			handleSubmit()
 		}
-	};
+	}
 
 	const handleFakeButtonClick = () => {
-		setShowFakeButton(true);
+		setShowFakeButton(true)
 		fakeButtonTimeoutRef.current = setTimeout(() => {
-			setShowFakeButton(false);
-			handleSubmit();
-		}, 1000);
-	};
+			setShowFakeButton(false)
+			handleSubmit()
+		}, 1000)
+	}
 
 	const handleCancelButtonClick = () => {
-		clearTimeout(fakeButtonTimeoutRef.current);
-		setShowFakeButton(false);
-	};
+		clearTimeout(fakeButtonTimeoutRef.current)
+		setShowFakeButton(false)
+	}
 
-	const showLoadingButton = isSending || showFakeButton;
+	const showLoadingButton = isSending || showFakeButton
 
 	return (
 		<section className="w-full h-full flex items-center justify-center">
 			<div className="max-w-7xl w-full h-full mx-auto flex flex-col">
-				<div
-					ref={chatContainerRef}
-					className="relative flex-1 overflow-y-auto px-2 rounded-lg pt-16 pb-20"
-				>
+				<div ref={chatContainerRef} className="relative flex-1 overflow-y-auto px-2 rounded-lg pt-16 pb-20">
 					{conversationHistory.map((message, index) => (
 						<div
 							key={index}
@@ -148,10 +140,8 @@ export default function Home() {
 						<div className="absolute p-2 z-30 right-2">
 							<button
 								onClick={() => {
-									setConversationHistory([]);
-									document.getElementById(
-										"inputContent",
-									).value = "";
+									setConversationHistory([])
+									document.getElementById("inputContent").value = ""
 								}}
 							>
 								<Trash2 className="md:h-5 md:w-5 h-4 w-4 text-red-500 mb-20" />
@@ -187,18 +177,14 @@ export default function Home() {
 						type="button"
 						onClick={handleSubmit}
 						className={`absolute right-6 md:right-24 w-10 h-10 ${
-							showLoadingButton
-								? "bg-zinc-400 dark:bg-zinc-900"
-								: "bg-zinc-300 dark:bg-zinc-700"
+							showLoadingButton ? "bg-zinc-400 dark:bg-zinc-900" : "bg-zinc-300 dark:bg-zinc-700"
 						} rounded-full flex items-center justify-center group`}
 						disabled={showLoadingButton}
 					>
 						{!showLoadingButton ? (
 							<CircleArrowUp
 								className={`${
-									isSending
-										? "text-zinc-700 dark:text-zinc-500"
-										: "text-zinc-500 dark:text-zinc-300"
+									isSending ? "text-zinc-700 dark:text-zinc-500" : "text-zinc-500 dark:text-zinc-300"
 								} w-8 h-8 group-hover:text-zinc-700 dark:group-hover:text-zinc-100 duration-200 rotate-90`}
 							/>
 						) : (
@@ -214,11 +200,10 @@ export default function Home() {
 				</form>
 				<div className="flex items-center w-full justify-center py-2">
 					<span className="text-zinc-500 md:text-xs text-[10px] tracking-wider">
-						SimplyAI may have made an error, please double check the
-						response.
+						SimplyAI may have made an error, please double check the response.
 					</span>
 				</div>
 			</div>
 		</section>
-	);
+	)
 }

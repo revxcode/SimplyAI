@@ -1,9 +1,10 @@
-import { defineConfig, loadEnv } from "vite";
-import react from "@vitejs/plugin-react";
+import { defineConfig, loadEnv } from "vite"
+import react from "@vitejs/plugin-react"
+import path from "path"
 
 export default defineConfig(({ mode }) => {
   // eslint-disable-next-line no-undef
-  const env = loadEnv(mode, process.cwd());
+  const env = loadEnv(mode, process.cwd())
   return {
     plugins: [react()],
     server: {
@@ -26,16 +27,12 @@ export default defineConfig(({ mode }) => {
       VITE_APP_GEMINI_API_TOKEN: JSON.stringify(env.VITE_APP_GEMINI_API_TOKEN),
       // google
       VITE_APP_GOOGLE_CLIENT_ID: JSON.stringify(env.VITE_APP_GOOGLE_CLIENT_ID),
-      VITE_APP_GOOGLE_CLIENT_SECRET: JSON.stringify(
-        env.VITE_APP_GOOGLE_CLIENT_SECRET,
-      ),
-      VITE_APP_GOOGLE_CALLBACK_URL: JSON.stringify(
-        env.VITE_APP_GOOGLE_CALLBACK_URL,
-      ),
+      VITE_APP_GOOGLE_CLIENT_SECRET: JSON.stringify(env.VITE_APP_GOOGLE_CLIENT_SECRET),
+      VITE_APP_GOOGLE_CALLBACK_URL: JSON.stringify(env.VITE_APP_GOOGLE_CALLBACK_URL),
     },
     resolve: {
       alias: {
-        "@": "/src",
+        "@": path.resolve(__dirname, "./src"),
       },
     },
     build: {
@@ -44,15 +41,11 @@ export default defineConfig(({ mode }) => {
         output: {
           manualChunks(id) {
             if (id.includes("node_modules")) {
-              return id
-                .toString()
-                .split("node_modules/")[1]
-                .split("/")[0]
-                .toString();
+              return id.toString().split("node_modules/")[1].split("/")[0].toString()
             }
           },
         },
       },
     },
-  };
-});
+  }
+})
