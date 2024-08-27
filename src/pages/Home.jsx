@@ -17,7 +17,7 @@ export default function Home() {
 
 	useEffect(() => {
 		if (textareaRef.current) {
-			textareaRef.current.style.height = "auto" // Reset height
+			textareaRef.current.style.height = "auto"
 			textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`
 		}
 	}, [])
@@ -33,9 +33,9 @@ export default function Home() {
 
 	const handleSubmit = async (value) => {
 		const textarea = document.getElementById("inputContent")
-		const inputValue = textarea.value.trim() || value
+		const inputValue = value || textarea.value
 
-		if (!inputValue.value) return
+		if (!inputValue) return
 
 		const newMessage = {
 			role: "user",
@@ -105,11 +105,10 @@ export default function Home() {
 					{conversationHistory.map((message, index) => (
 						<div
 							key={index}
-							className={`flex items-start ${
-								message.role === "user"
-									? "md:flex-row-reverse animate-slide-in-right"
-									: "animate-slide-in-left"
-							}`}
+							className={`flex items-start ${message.role === "user"
+								? "md:flex-row-reverse animate-slide-in-right"
+								: "animate-slide-in-left"
+								}`}
 						>
 							<img
 								src={
@@ -126,11 +125,10 @@ export default function Home() {
 								}
 							/>
 							<div
-								className={`max-w-xs ${
-									message.role === "user"
-										? "bg-blue-500 dark:bg-blue-600 text-white overflow-auto md:px-4 pl-4 pr-2 rounded-2xl rounded-tl-none md:rounded-tl-2xl md:rounded-tr-none md:ml-4 py-1 mx-1"
-										: "bg-inherit dark:bg-bg-inherit text-black dark:text-white overflow-auto px-3 rounded-2xl md:rounded-tl-none md:ml-2 md:mr-4"
-								} mt-4 w-full md:max-w-2xl md:w-fit relative duration-200`}
+								className={`max-w-xs ${message.role === "user"
+									? "bg-blue-500 dark:bg-blue-600 text-white overflow-auto md:px-4 pl-4 pr-2 rounded-2xl rounded-tl-none md:rounded-tl-2xl md:rounded-tr-none md:ml-4 py-1 mx-1"
+									: "bg-inherit dark:bg-bg-inherit text-black dark:text-white overflow-auto px-3 rounded-2xl md:rounded-tl-none md:ml-2 md:mr-4"
+									} mt-4 w-full md:max-w-2xl md:w-fit relative duration-200`}
 							>
 								<MDRender>{message.content}</MDRender>
 							</div>
@@ -151,7 +149,7 @@ export default function Home() {
 						<div className="flex items-center justify-center h-full md:gap-4">
 							<button
 								type="button"
-								className="w-full px-4 md:max-w-xs h-36 bg-gradient-to-tr from-zinc-100 to-zinc-200 dark:from-zinc-800 dark:to-zinc-900 text-zinc-700 dark:text-zinc-300 rounded-2xl md:rounded-lg flex items-center justify-center duration-300 mx-10"
+								className="w-full px-4 md:max-w-xs h-28 bg-gradient-to-tr from-zinc-100 to-zinc-200 dark:from-zinc-800 dark:to-zinc-900 text-zinc-700 dark:text-yellow-500 rounded-xl md:rounded-lg flex items-center justify-center duration-300 mx-10"
 								onClick={() => handleSubmit("Hallo SimplyAI")}
 							>
 								Welcome to SimplyAI
@@ -164,29 +162,24 @@ export default function Home() {
 						ref={textareaRef}
 						id="inputContent"
 						type="text"
-						className="relative w-full h-auto min-h-12 rounded-2xl outline-none border-none pl-4 pr-14 hidden-scrollbar resize-none bg-zinc-200 dark:bg-zinc-950 text-black dark:text-white duration-200 focus:min-h-36"
+						className="relative w-full h-auto min-h-12 rounded-2xl outline-none border-none pl-4 pr-14 py-3 hidden-scrollbar resize-none bg-zinc-200 dark:bg-zinc-950 text-black dark:text-white duration-200 valid:min-h-36"
 						placeholder="Ask me anything..."
 						onKeyDown={handleKeyDown}
-						style={{
-							paddingTop: "10px",
-							paddingBottom: "10px",
-						}}
+						minLength={1}
 						required
-						// autoFocus
 					/>
+
 					<button
 						type="button"
-						onClick={handleSubmit}
-						className={`absolute right-6 md:right-24 w-10 h-10 ${
-							showLoadingButton ? "bg-zinc-400 dark:bg-zinc-900" : "bg-zinc-300 dark:bg-zinc-700"
-						} rounded-full flex items-center justify-center group`}
+						onClick={() => handleSubmit(document.getElementById("inputContent").value)}
+						className={`absolute right-6 md:right-24 w-10 h-10 ${showLoadingButton ? "bg-zinc-400 dark:bg-zinc-900" : "bg-zinc-300 dark:bg-zinc-700"
+							} rounded-full flex items-center justify-center group`}
 						disabled={showLoadingButton}
 					>
 						{!showLoadingButton ? (
 							<CircleArrowUp
-								className={`${
-									isSending ? "text-zinc-700 dark:text-zinc-500" : "text-zinc-500 dark:text-zinc-300"
-								} w-8 h-8 group-hover:text-zinc-700 dark:group-hover:text-zinc-100 duration-200 rotate-90`}
+								className={`${isSending ? "text-zinc-700 dark:text-zinc-500" : "text-zinc-500 dark:text-zinc-300"
+									} w-8 h-8 group-hover:text-zinc-700 dark:group-hover:text-zinc-100 duration-200 rotate-90`}
 							/>
 						) : (
 							<Clock className="w-8 h-8 text-zinc-600 cursor-wait animate-spin" />
