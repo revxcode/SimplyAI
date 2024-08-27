@@ -35,7 +35,7 @@ export default function Home() {
 		const textarea = document.getElementById("inputContent")
 		const inputValue = textarea.value.trim() || value
 
-		if (!inputValue) return
+		if (!inputValue.value) return
 
 		const newMessage = {
 			role: "user",
@@ -164,7 +164,7 @@ export default function Home() {
 						ref={textareaRef}
 						id="inputContent"
 						type="text"
-						className="relative w-full max-h-36 h-auto rounded-2xl outline-none border-none pl-4 pr-14 hidden-scrollbar resize-none bg-zinc-200 dark:bg-zinc-950 text-black dark:text-white duration-200"
+						className="relative w-full h-auto min-h-12 rounded-2xl outline-none border-none pl-4 pr-14 hidden-scrollbar resize-none bg-zinc-200 dark:bg-zinc-950 text-black dark:text-white duration-200 focus:min-h-36"
 						placeholder="Ask me anything..."
 						onKeyDown={handleKeyDown}
 						style={{
@@ -172,6 +172,7 @@ export default function Home() {
 							paddingBottom: "10px",
 						}}
 						required
+						// autoFocus
 					/>
 					<button
 						type="button"
