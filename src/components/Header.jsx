@@ -1,5 +1,5 @@
 // import { useState, useEffect } from "react";
-import { InformationCircleIcon } from "@heroicons/react/24/solid";
+import { InformationCircleIcon } from "@heroicons/react/24/solid"
 
 // eslint-disable-next-line react/prop-types
 function Header({ toggleHelpPopup }) {
@@ -8,7 +8,7 @@ function Header({ toggleHelpPopup }) {
       <h1 className="text-lg font-semibold text-white flex items-center">
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="h-6 w-6 mr-2 text-blue-500 dark:text-yellow-500"
+          className="h-6 w-6 mr-2 text-blue-500 dark:text-purple-600"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -23,7 +23,7 @@ function Header({ toggleHelpPopup }) {
             d="M12 6v6m0 0v6m0-6h6m-6 0H6"
           />
         </svg>
-        <span className="text-2xl font-normal font-montserrat text-blue-500 dark:text-yellow-500">
+        <span className="text-2xl font-normal font-montserrat text-blue-500 dark:text-purple-600">
           Simply
           <span className="font-bold">AI</span>
         </span>
@@ -31,13 +31,13 @@ function Header({ toggleHelpPopup }) {
       <div className="flex items-center space-x-4">
         <button
           onClick={toggleHelpPopup}
-          className="text-blue-500 dark:text-yellow-500 focus:outline-none z-20"
+          className="text-blue-500 dark:text-purple-600 focus:outline-none z-20"
         >
           <InformationCircleIcon className="h-6 w-6" />
         </button>
       </div>
     </div>
-  );
+  )
 }
 
-export default Header;
+export default Header

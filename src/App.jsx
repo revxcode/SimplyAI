@@ -1,8 +1,8 @@
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { ThemeProvider } from "@/components/theme-provider";
-import MainLayout from "@/layouts/MainLayout";
-import Home from "@/pages/Home";
-import Login from "@/pages/Login";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
+import { ThemeProvider } from "@/components/theme-provider"
+import MainLayout from "@/layouts/MainLayout"
+import Home from "@/pages/Home"
+import Login from "@/pages/Login"
 // import Callback from "@/pages/Callback";
 
 export default function App() {
@@ -18,5 +18,5 @@ export default function App() {
         </MainLayout>
       </Router>
     </ThemeProvider>
-  );
+  )
 }

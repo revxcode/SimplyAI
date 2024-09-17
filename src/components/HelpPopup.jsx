@@ -1,20 +1,26 @@
-import { XCircle } from "lucide-react";
+import { X } from "lucide-react"
 
 // eslint-disable-next-line react/prop-types
 function HelpPopup({ toggleHelpPopup }) {
+
+  const onMouseUp = (e) => {
+    if (e.target.classList.contains("fixed")) {
+      toggleHelpPopup()
+    }
+  }
   return (
-    <div className="fixed inset-0 flex items-center justify-center z-20">
-      <div className="fixed inset-0 bg-black opacity-50"></div>
+    <div className="fixed top-10 right-10 flex items-center justify-center z-20">
+      <div className="fixed inset-0 bg-black opacity-50" onMouseUp={onMouseUp}></div>
       <div className="relative md:max-w-3xl mx-2 w-full min-h-64 bg-zinc-100 dark:bg-zinc-800 z-10 rounded-md duration-200 shadow-md">
         <button
           className="absolute top-0 right-0 p-4"
           onClick={toggleHelpPopup}
         >
-          <XCircle className="w-8 h-8 text-zinc-500" />
+          <X className="w-6 h-6 text-zinc-500" />
         </button>
         <div className="p-8">
-          <h2 className="md:text-3xl text-2xl font-semibold text-blue-500 dark:text-yellow-500 font-bebasneue tracking-wider">
-            How to use
+          <h2 className="md:text-3xl text-2xl pb-4 font-semibold text-blue-500 dark:text-purple-600 font-bebasneue tracking-wider text-center">
+            Infomation!
           </h2>
           <ul className="w-full list-inside text-zinc-700 dark:text-zinc-300 mt-2 font-montserrat text-sm md:text-base">
             <li className="list-disc">
@@ -46,7 +52,7 @@ function HelpPopup({ toggleHelpPopup }) {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default HelpPopup;
+export default HelpPopup

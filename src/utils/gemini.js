@@ -14,7 +14,7 @@ export const useGeminiAI = () => {
 		})
 
 		const genAI = new GoogleGenerativeAI(API_KEY)
-		const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" })
+		const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" })
 		const chat = model.startChat({
 			history: [
 				{
@@ -31,14 +31,14 @@ export const useGeminiAI = () => {
 
 		try {
 			const result = await chat.sendMessage(content)
-			const response = await result.response
-			const text = await response.text() // Don't forget to await the text() method
+			const response = result.response
+			const text = response.text()
+			// console.log("Response from Gemini AI:", text)
 
 			return text
 		} catch (error) {
-			console.error("There was a problem with the axios operation:", error)
+			console.error("There was a problem with the operation:", error)
 		}
 	}
-
 	return generateResponse
 }

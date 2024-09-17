@@ -1,7 +1,6 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 import { useState, useEffect, useRef } from "react"
 import { useGeminiAI } from "@/utils/gemini"
-import { MDRender } from "@/components/MDRender"
+import { MdRender } from "@/components/MdRender"
 import { CircleArrowUp, Clock, Trash2 } from "lucide-react"
 import { useConversationHistorys } from "@/stores/StoreConversationHistorys"
 
@@ -121,7 +120,7 @@ export default function Home() {
 									"md:w-10 md:h-10 h-8 w-8 rounded-full border-2  " +
 									(message.role === "user"
 										? "ml-1 border-blue-500"
-										: "mr-1 border-blue-500 dark:border-yellow-500 md:block hidden")
+										: "mr-1 border-blue-500 dark:border-purple-600 md:block hidden")
 								}
 							/>
 							<div
@@ -130,12 +129,12 @@ export default function Home() {
 									: "bg-inherit dark:bg-bg-inherit text-black dark:text-white overflow-auto px-3 rounded-2xl md:rounded-tl-none md:ml-2 md:mr-4"
 									} mt-4 w-full md:max-w-2xl md:w-fit relative duration-200`}
 							>
-								<MDRender>{message.content}</MDRender>
+								<MdRender>{message.content}</MdRender>
 							</div>
 						</div>
 					))}
 					{conversationHistory.length > 0 ? (
-						<div className="absolute p-2 z-30 right-2">
+						<div className="absolute p-2 z-30 -right-2">
 							<button
 								onClick={() => {
 									setConversationHistory([])
@@ -149,7 +148,7 @@ export default function Home() {
 						<div className="flex items-center justify-center h-full md:gap-4">
 							<button
 								type="button"
-								className="w-full px-4 md:max-w-xs h-28 bg-gradient-to-tr from-zinc-100 to-zinc-200 dark:from-zinc-800 dark:to-zinc-900 text-zinc-700 dark:text-yellow-500 rounded-xl md:rounded-lg flex items-center justify-center duration-300 mx-10"
+								className="w-full px-4 md:max-w-xs h-28 bg-gradient-to-tr from-zinc-100 to-zinc-200 dark:from-zinc-800 dark:to-zinc-900 text-zinc-700 dark:text-purple-600 rounded-xl md:rounded-lg flex items-center justify-center duration-300 mx-10"
 								onClick={() => handleSubmit("Hallo SimplyAI")}
 							>
 								Welcome to SimplyAI
@@ -165,7 +164,7 @@ export default function Home() {
 						className="relative w-full h-auto min-h-12 rounded-2xl outline-none border-none pl-4 pr-14 py-3 hidden-scrollbar resize-none bg-zinc-200 dark:bg-zinc-950 text-black dark:text-white duration-200 valid:min-h-36"
 						placeholder="Ask me anything..."
 						onKeyDown={handleKeyDown}
-						minLength={1}
+						pattern="[A-Za-z0-9]+"
 						required
 					/>
 
