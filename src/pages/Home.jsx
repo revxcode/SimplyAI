@@ -3,6 +3,7 @@ import { useGeminiAI } from "@/utils/gemini"
 import { MdRender } from "@/components/MdRender"
 import { CircleArrowUp, Clock, Trash2 } from "lucide-react"
 import { useConversationHistorys } from "@/stores/StoreConversationHistorys"
+import { saveConversation } from "@/utils/indexedDb"
 
 export default function Home() {
 	const { conversationHistory, setConversationHistory } = useConversationHistorys()
@@ -19,7 +20,8 @@ export default function Home() {
 			textareaRef.current.style.height = "auto"
 			textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`
 		}
-	}, [])
+
+	}, [setConversationHistory])
 
 	useEffect(() => {
 		if (chatContainerRef.current) {
@@ -44,7 +46,7 @@ export default function Home() {
 
 		const assistantPendingMessage = {
 			role: "assistant",
-			content: "Answering...",
+			content: "",
 			optimistic: true,
 		}
 
@@ -65,8 +67,10 @@ export default function Home() {
 						content: assistantResponse,
 					},
 				])
-			}
 
+				saveConversation({ newMessage, assistantResponse })
+
+			}
 			setIsSending(false)
 			setShowFakeButton(false) // Hapus tombol palsu setelah selesai
 		} catch (error) {
@@ -98,9 +102,9 @@ export default function Home() {
 	const showLoadingButton = isSending || showFakeButton
 
 	return (
-		<section className="w-full h-full flex items-center justify-center">
+		<section className="w-full h-full flex items-center justify-center pt-16 pb-8">
 			<div className="max-w-7xl w-full h-full mx-auto flex flex-col">
-				<div ref={chatContainerRef} className="relative flex-1 overflow-y-auto px-2 rounded-lg pt-16 pb-20">
+				<div ref={chatContainerRef} className="relative flex-1 overflow-y-auto px-2 rounded-lg overflow-x-hidden">
 					{conversationHistory.map((message, index) => (
 						<div
 							key={index}
@@ -117,24 +121,27 @@ export default function Home() {
 								}
 								alt={message.role}
 								className={
-									"md:w-10 md:h-10 h-8 w-8 rounded-full border-2  " +
+									"md:w-10 md:h-10 h-8 w-8 rounded-full border-2 md:block hidden " +
 									(message.role === "user"
-										? "ml-1 border-blue-500"
-										: "mr-1 border-blue-500 dark:border-purple-600 md:block hidden")
+										? "ml-1 border-zinc-200 dark:border-zinc-800"
+										: "mr-1 border-zinc-500 dark:border-purple-600")
 								}
 							/>
 							<div
-								className={`max-w-xs ${message.role === "user"
-									? "bg-blue-500 dark:bg-blue-600 text-white overflow-auto md:px-4 pl-4 pr-2 rounded-2xl rounded-tl-none md:rounded-tl-2xl md:rounded-tr-none md:ml-4 py-1 mx-1"
+								className={`max-w-full ${message.role === "user"
+									? "bg-zinc-200 dark:bg-zinc-800 text-black dark:text-white overflow-auto md:px-4 pl-4 pr-2 rounded-lg md:rounded-tl-2xl md:rounded-tr-none md:ml-4 py-1 mx-1"
 									: "bg-inherit dark:bg-bg-inherit text-black dark:text-white overflow-auto px-3 rounded-2xl md:rounded-tl-none md:ml-2 md:mr-4"
 									} mt-4 w-full md:max-w-2xl md:w-fit relative duration-200`}
 							>
+								<div className={"w-full h-10 " + (message.role === "assistant" && message.optimistic ? 'block' : 'hidden')}>
+									<div className="waiting-animation"></div>
+								</div>
 								<MdRender>{message.content}</MdRender>
 							</div>
 						</div>
 					))}
 					{conversationHistory.length > 0 ? (
-						<div className="absolute p-2 z-30 -right-2">
+						<div className="">
 							<button
 								onClick={() => {
 									setConversationHistory([])

@@ -60,7 +60,7 @@ export const MdRender = ({ children }) => {
           const language = match ? match[1] : ""
 
           return !inline && match ? (
-            <div className="relative mt-4">
+            <div className="relative mt-6">
               <span className="absolute -top-3 left-4 text-xs md:text-sm rounded z-10 bg-zinc-300 dark:bg-zinc-700 px-2 py-0.5 shadow-md">{language}</span>
               <CopyToClipboard
                 text={String(children).replace(/\n$/, "")}
@@ -98,7 +98,7 @@ export const MdRender = ({ children }) => {
               </SyntaxHighlighter>
             </div>
           ) : (
-            <code className="text-xs md:text-sm font-mono font-medium hover:text-blue-600 dark:hover:text-purple-500 duration-200">
+            <code className="text-xs md:text-sm font-semibold hover:text-blue-600 dark:hover:text-purple-500 duration-200">
               {children}
             </code>
           )

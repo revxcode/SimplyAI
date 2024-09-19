@@ -7,7 +7,7 @@ import Login from "@/pages/Login"
 
 export default function App() {
   return (
-    <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
+    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <Router>
         <MainLayout>
           <Routes>

@@ -79,12 +79,12 @@ export function ToggleMode() {
           onMouseUp={handleOnMouseUp}
           onTouchStart={handleOnTouchStart}
           onTouchEnd={handleOnTouchEnd}
-          className="p-2 rounded-full bg-zinc-100 dark:bg-zinc-900 shadow-md focus:outline-none ring-2 ring-blue-500 dark:ring-purple-600 duration-200"
+          className="p-2 rounded-full bg-zinc-100 dark:bg-zinc-900 shadow-md focus:outline-none ring-2 ring-zinc-400 dark:ring-purple-600 duration-200"
         >
           {theme === "dark" ? (
             <SunIcon className="md:h-6 md:w-6 h-5 w-5 text-purple-600" />
           ) : (
-            <MoonIcon className="md:h-6 md:w-6 h-5 w-5 text-blue-600" />
+            <MoonIcon className="md:h-6 md:w-6 h-5 w-5 text-zinc-400" />
           )}
         </button>
       </div>
