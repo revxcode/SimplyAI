@@ -1,62 +1,61 @@
-import { useState, useEffect, useRef } from "react"
-import { useGeminiAI } from "@/utils/gemini"
-import { MdRender } from "@/components/MdRender"
-import { CircleArrowUp, Clock, Trash2 } from "lucide-react"
-import { useConversationHistorys } from "@/stores/StoreConversationHistorys"
-import { saveConversation } from "@/utils/indexedDb"
+import { useState, useEffect, useRef } from "react";
+import { useGeminiAI } from "@/utils/gemini";
+import { MdRender } from "@/components/MdRender";
+import { CircleArrowUp, Clock, Trash2 } from "lucide-react";
+import { useConversationHistorys } from "@/stores/StoreConversationHistorys";
 
 export default function Home() {
-	const { conversationHistory, setConversationHistory } = useConversationHistorys()
-	const [isSending, setIsSending] = useState(false)
-	const [showFakeButton, setShowFakeButton] = useState(false)
-	const generateResponse = useGeminiAI()
+	const { conversationHistory, setConversationHistory } = useConversationHistorys();
+	const [isSending, setIsSending] = useState(false);
+	const [showFakeButton, setShowFakeButton] = useState(false);
+	const generateResponse = useGeminiAI();
 
-	const textareaRef = useRef(null)
-	const chatContainerRef = useRef(null)
-	const fakeButtonTimeoutRef = useRef(null)
+	const textareaRef = useRef(null);
+	const chatContainerRef = useRef(null);
+	const fakeButtonTimeoutRef = useRef(null);
 
 	useEffect(() => {
 		if (textareaRef.current) {
-			textareaRef.current.style.height = "auto"
-			textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`
+			textareaRef.current.style.height = "auto";
+			textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
 		}
 
-	}, [setConversationHistory])
+	}, [setConversationHistory]);
 
 	useEffect(() => {
 		if (chatContainerRef.current) {
 			chatContainerRef.current.scrollTo({
 				top: chatContainerRef.current.scrollHeight,
 				behavior: "smooth",
-			})
+			});
 		}
-	}, [conversationHistory])
+	}, [conversationHistory]);
 
 	const handleSubmit = async (value) => {
-		const textarea = document.getElementById("inputContent")
-		const inputValue = value || textarea.value
+		const textarea = document.getElementById("inputContent");
+		const inputValue = value || textarea.value;
 
-		if (!inputValue) return
+		if (!inputValue) return;
 
 		const newMessage = {
 			role: "user",
 			content: inputValue,
 			optimistic: true,
-		}
+		};
 
 		const assistantPendingMessage = {
 			role: "assistant",
 			content: "",
 			optimistic: true,
-		}
+		};
 
-		setIsSending(true)
-		setConversationHistory([...conversationHistory, newMessage, assistantPendingMessage])
+		setIsSending(true);
+		setConversationHistory([...conversationHistory, newMessage, assistantPendingMessage]);
 
-		textarea.value = ""
+		textarea.value = "";
 
 		try {
-			const assistantResponse = await generateResponse(inputValue)
+			const assistantResponse = await generateResponse(inputValue);
 
 			if (assistantResponse) {
 				setConversationHistory([
@@ -66,40 +65,40 @@ export default function Home() {
 						role: "assistant",
 						content: assistantResponse,
 					},
-				])
+				]);
 
-				saveConversation({ newMessage, assistantResponse })
+
 
 			}
-			setIsSending(false)
-			setShowFakeButton(false) // Hapus tombol palsu setelah selesai
+			setIsSending(false);
+			setShowFakeButton(false); // Hapus tombol palsu setelah selesai
 		} catch (error) {
-			console.error(error)
-			setIsSending(false)
+			console.error(error);
+			setIsSending(false);
 		}
-	}
+	};
 
 	const handleKeyDown = (e) => {
 		if (e.key === "Enter" && !e.shiftKey) {
-			e.preventDefault()
-			handleSubmit()
+			e.preventDefault();
+			handleSubmit();
 		}
-	}
+	};
 
 	const handleFakeButtonClick = () => {
-		setShowFakeButton(true)
+		setShowFakeButton(true);
 		fakeButtonTimeoutRef.current = setTimeout(() => {
-			setShowFakeButton(false)
-			handleSubmit()
-		}, 1000)
-	}
+			setShowFakeButton(false);
+			handleSubmit();
+		}, 1000);
+	};
 
 	const handleCancelButtonClick = () => {
-		clearTimeout(fakeButtonTimeoutRef.current)
-		setShowFakeButton(false)
-	}
+		clearTimeout(fakeButtonTimeoutRef.current);
+		setShowFakeButton(false);
+	};
 
-	const showLoadingButton = isSending || showFakeButton
+	const showLoadingButton = isSending || showFakeButton;
 
 	return (
 		<section className="w-full h-full flex items-center justify-center pt-16 pb-8">
@@ -144,8 +143,8 @@ export default function Home() {
 						<div className="">
 							<button
 								onClick={() => {
-									setConversationHistory([])
-									document.getElementById("inputContent").value = ""
+									setConversationHistory([]);
+									document.getElementById("inputContent").value = "";
 								}}
 							>
 								<Trash2 className="md:h-5 md:w-5 h-4 w-4 text-red-500 mb-20" />
@@ -205,5 +204,5 @@ export default function Home() {
 				</div>
 			</div>
 		</section>
-	)
+	);
 }
