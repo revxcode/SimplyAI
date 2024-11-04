@@ -9,7 +9,6 @@ export default function Home() {
 	const [isSending, setIsSending] = useState(false);
 	const [showFakeButton, setShowFakeButton] = useState(false);
 	const generateResponse = useGeminiAI();
-
 	const textareaRef = useRef(null);
 	const chatContainerRef = useRef(null);
 	const fakeButtonTimeoutRef = useRef(null);
@@ -20,6 +19,9 @@ export default function Home() {
 			textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
 		}
 
+		return () => {
+			clearTimeout(fakeButtonTimeoutRef.current);
+		};
 	}, [setConversationHistory]);
 
 	useEffect(() => {
@@ -29,6 +31,10 @@ export default function Home() {
 				behavior: "smooth",
 			});
 		}
+
+		return () => {
+			clearTimeout(fakeButtonTimeoutRef.current);
+		};
 	}, [conversationHistory]);
 
 	const handleSubmit = async (value) => {
@@ -66,9 +72,6 @@ export default function Home() {
 						content: assistantResponse,
 					},
 				]);
-
-
-
 			}
 			setIsSending(false);
 			setShowFakeButton(false); // Hapus tombol palsu setelah selesai
@@ -172,6 +175,7 @@ export default function Home() {
 						onKeyDown={handleKeyDown}
 						pattern="[A-Za-z0-9]+"
 						required
+						autoFocus
 					/>
 
 					<button
