@@ -1,7 +1,3 @@
-/* eslint-disable react-hooks/rules-of-hooks */
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/no-children-prop */
-/* eslint-disable react/prop-types */
 import { useState } from "react"
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter"
 import { materialDark } from "react-syntax-highlighter/dist/esm/styles/prism"
@@ -27,9 +23,10 @@ import bash from "highlight.js/lib/languages/bash"
 import json from "highlight.js/lib/languages/json"
 import yaml from "highlight.js/lib/languages/yaml"
 import remarkGfm from "remark-gfm"
-// import rehypeRaw from "rehype-raw"
+import remarkMath from "remark-math"
+import rehypeKatex from 'rehype-katex'
+import 'katex/dist/katex.min.css'
 
-// Register languages for syntax highlighting
 hljs.registerLanguage("javascript", javascript)
 hljs.registerLanguage("python", python)
 hljs.registerLanguage("java", java)
@@ -49,14 +46,16 @@ hljs.registerLanguage("json", json)
 hljs.registerLanguage("yaml", yaml)
 
 export const MdRender = ({ children }) => {
+  if (typeof children !== "string") return children
   return (
     <Markdown
-      remarkPlugins={[remarkGfm]}
+      remarkPlugins={[remarkGfm, remarkMath]}
+      rehypePlugins={[rehypeKatex]}
       children={children}
       components={{
-        code({ node, inline, className, children, ...props }) {
+        code({ inline, className, children }) {
           const [copied, setCopied] = useState(false)
-          const match = /language-(\w+)/.exec(className || "")
+          const match = /language-(\w+)|math/.exec(className || "")
           const language = match ? match[1] : ""
 
           return !inline && match ? (

@@ -14,16 +14,8 @@ export const useGeminiAI = () => {
 		})
 
 		const genAI = new GoogleGenerativeAI(API_KEY)
-		const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" })
-		const generationConfig = {
-			temperature: 1,
-			topP: 0.95,
-			topK: 64,
-			maxOutputTokens: 8192,
-			responseMimeType: "text/plain",
-		}
+		const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-001" })
 		const chat = model.startChat({
-			generationConfig,
 			history: [
 				{
 					role: "user",
@@ -33,6 +25,14 @@ export const useGeminiAI = () => {
 					role: "model",
 					parts: [{ text: "Well, I'm SimplyAI" }],
 				},
+				{
+					role: "user",
+					parts: [{ text: "If the request response is a mathematical expression that can be parsed by the remarkmath/rehypekatex plugin, add $$ math $$ to the mathematical response." }]
+				},
+				{
+					role: "model",
+					parts: [{ text: "default text $$ math response $$" }]
+				},
 				...historys,
 			],
 		})
@@ -41,13 +41,11 @@ export const useGeminiAI = () => {
 			const result = await chat.sendMessage(content)
 			const response = result.response
 			const text = response.text()
-			// console.log("Response from Gemini AI:", text)
-
 			return text
 		} catch (error) {
 			console.error("There was a problem with the operation:", error)
 		}
 	}
-	
+
 	return generateResponse
 }

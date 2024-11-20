@@ -6,9 +6,9 @@
   "scripts": {
     "dev": "bunx --bun vite",
     "build": "bunx --bun vite build",
-    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+    "lint": "eslint . --ext .js,.jsx",
     "preview": "bunx --bun vite preview",
-    "server": "nodemon server/index.js"
+    "clean": "rm -rf dist node_modules"
   },
   "dependencies": {
     "@google/generative-ai": "^0.14.1",
@@ -27,16 +27,13 @@
     "react-responsive": "^10.0.0",
     "react-router-dom": "^6.27.0",
     "react-syntax-highlighter": "^15.6.1",
-    "rehype-raw": "^7.0.0",
+    "rehype-katex": "^7.0.1",
     "remark-gfm": "^4.0.0",
+    "remark-html": "^16.0.1",
+    "remark-math": "^6.0.0",
     "zustand": "^4.5.5"
   },
   "devDependencies": {
-    "@types/bun": "latest",
-    "@types/react": "^18.3.12",
-    "@types/react-copy-to-clipboard": "^5.0.7",
-    "@types/react-dom": "^18.3.1",
-    "@types/react-syntax-highlighter": "^15.5.13",
     "@vitejs/plugin-react": "^4.3.3",
     "autoprefixer": "^10.4.20",
     "dotenv": "^16.4.5",
@@ -48,8 +45,5 @@
     "tailwindcss": "^3.4.14",
     "vite": "^5.4.10"
   },
-  "module": "index.ts",
-  "peerDependencies": {
-    "typescript": "^5.5.4"
-  }
+  "module": "index.ts"
 }
