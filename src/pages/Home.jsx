@@ -157,10 +157,10 @@ export default function Home() {
 						<div className="flex items-center justify-center h-full md:gap-4">
 							<button
 								type="button"
-								className="w-full px-4 md:max-w-xs h-28 bg-gradient-to-tr from-zinc-100 to-zinc-200 dark:from-zinc-800 dark:to-zinc-900 text-zinc-700 dark:text-purple-600 rounded-xl md:rounded-lg flex items-center justify-center duration-300 mx-10"
+								className="min-w-40 min-h-12 dark:bg-zinc-900 text-zinc-700 dark:text-purple-600 rounded-full flex items-center justify-center duration-300 border-2 border-zinc-800"
 								onClick={() => handleSubmit("Hallo SimplyAI")}
 							>
-								Welcome to SimplyAI
+								Hallo
 							</button>
 						</div>
 					)}
@@ -170,7 +170,7 @@ export default function Home() {
 						ref={textareaRef}
 						id="inputContent"
 						type="text"
-						className="relative w-full h-auto min-h-12 rounded-2xl outline-none border-none pl-4 pr-14 py-3 hidden-scrollbar resize-none bg-zinc-200 dark:bg-zinc-950 text-black dark:text-white duration-200 valid:min-h-36"
+						className="relative w-full h-auto min-h-12 rounded-2xl outline-none border-none pl-4 pr-14 py-3 hidden-scrollbar resize-none bg-zinc-950 text-black dark:text-white duration-200 valid:min-h-36"
 						placeholder="Ask me anything..."
 						onKeyDown={handleKeyDown}
 						pattern="[A-Za-z0-9]+"

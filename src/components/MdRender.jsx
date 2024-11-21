@@ -1,7 +1,6 @@
 import { useState } from "react"
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter"
 import { materialDark } from "react-syntax-highlighter/dist/esm/styles/prism"
-import { CopyToClipboard } from "react-copy-to-clipboard"
 import { Copy, Check } from "lucide-react"
 import Markdown from "react-markdown"
 import hljs from "highlight.js/lib/core"
@@ -45,13 +44,24 @@ hljs.registerLanguage("bash", bash)
 hljs.registerLanguage("json", json)
 hljs.registerLanguage("yaml", yaml)
 
-export const MdRender = ({ children }) => {
-  if (typeof children !== "string") return children
+const CopyToClipboard = ({ text, onCopy, children }) => {
+  const handleClick = () => {
+    navigator.clipboard.writeText(text)
+    onCopy()
+  }
+
+  return (
+    <button onClick={handleClick} className="text-xs rounded p-1">
+      {children}
+    </button>
+  )
+}
+
+export const MdRender = (children) => {
   return (
     <Markdown
       remarkPlugins={[remarkGfm, remarkMath]}
       rehypePlugins={[rehypeKatex]}
-      children={children}
       components={{
         code({ inline, className, children }) {
           const [copied, setCopied] = useState(false)
@@ -60,7 +70,7 @@ export const MdRender = ({ children }) => {
 
           return !inline && match ? (
             <div className="relative mt-6">
-              <span className="absolute -top-3 left-4 text-xs md:text-sm rounded z-10 bg-zinc-300 dark:bg-zinc-700 px-2 py-0.5 shadow-md">{language}</span>
+              <span className="absolute -top-3 left-4 text-xs md:text-sm rounded z-10 bg-zinc-700 px-2 py-0.5 shadow-md">{language}</span>
               <CopyToClipboard
                 text={String(children).replace(/\n$/, "")}
                 onCopy={() => {
@@ -205,6 +215,8 @@ export const MdRender = ({ children }) => {
           return <tr className="bg-zinc-900">{children}</tr>
         },
       }}
-    />
+    >
+      {children.children}
+    </Markdown>
   )
 }

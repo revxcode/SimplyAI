@@ -1,14 +1,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
-
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
-/*darkmode and lightmode */
-
 :root {
-	--background-color: rgb(255, 255, 255);
-	--text-color: rgb(0, 0, 0);
+	--background-color: #18181b;
+	--text-color: #e4e4e7;
 }
 
 body {
@@ -17,29 +14,17 @@ body {
 }
 
 ::-webkit-scrollbar {
-	width: 8px;
+	width: 10px;
 }
 
 ::-webkit-scrollbar-thumb {
-	background-color: rgba(0, 0, 0, 0.2);
+	background-color: rgba(100, 100, 100, 0.5);
 	border-radius: 4px;
 }
 
 ::-webkit-scrollbar-track {
-	background-color: rgba(0, 0, 0, 0.1);
+	background-color: rgba(50, 50, 50, 0.5);
 	border-radius: 4px;
-}
-
-@media (prefers-color-scheme: dark) {
-	:root {
-		--background-color: rgb(0, 0, 0);
-		--text-color: rgb(255, 255, 255);
-	}
-
-	body {
-		background-color: var(--background-color);
-		color: var(--text-color);
-	}
 }
 
 .animate-slide-in-right {
@@ -73,13 +58,12 @@ body {
 	border-radius: 4px;
 }
 
-/* animations */
-
 @keyframes slide-in-right {
 	0% {
 		transform: translateX(100%);
 		opacity: 0;
 	}
+
 	100% {
 		transform: translateX(0);
 		opacity: 1;
@@ -91,27 +75,178 @@ body {
 		transform: translateX(-100%);
 		opacity: 0;
 	}
+
 	100% {
 		transform: translateX(0);
 		opacity: 1;
 	}
 }
 
-
-/* HTML: <div class="waiting-animation"></div> */
 .waiting-animation {
-  width: 60px;
-  aspect-ratio: 4;
-  --_g: no-repeat radial-gradient(circle closest-side,#9333ea 90%,#0000);
-  background: 
-    var(--_g) 0%   50%,
-    var(--_g) 50%  50%,
-    var(--_g) 100% 50%;
-  background-size: calc(100%/3) 100%;
-  animation: l7 1s infinite linear;
+	width: 60px;
+	aspect-ratio: 4;
+	--_g: no-repeat radial-gradient(circle closest-side, #9333ea 90%, #0000);
+	background:
+		var(--_g) 0% 50%,
+		var(--_g) 50% 50%,
+		var(--_g) 100% 50%;
+	background-size: calc(100%/3) 100%;
+	animation: l7 1s infinite linear;
 }
+
 @keyframes l7 {
-    33%{background-size:calc(100%/3) 0%  ,calc(100%/3) 100%,calc(100%/3) 100%}
-    50%{background-size:calc(100%/3) 100%,calc(100%/3) 0%  ,calc(100%/3) 100%}
-    66%{background-size:calc(100%/3) 100%,calc(100%/3) 100%,calc(100%/3) 0%  }
+	33% {
+		background-size: calc(100%/3) 0%, calc(100%/3) 100%, calc(100%/3) 100%
+	}
+
+	50% {
+		background-size: calc(100%/3) 100%, calc(100%/3) 0%, calc(100%/3) 100%
+	}
+
+	66% {
+		background-size: calc(100%/3) 100%, calc(100%/3) 100%, calc(100%/3) 0%
+	}
+}
+
+pre {
+	@apply text-white rounded-lg overflow-x-auto mt-2 mb-4 pt-6;
+}
+
+code {
+	@apply text-sm font-mono rounded-md rounded-t-none bg-red-500 whitespace-pre-wrap;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	color: #f3f4f6;
+}
+
+h1 {
+	font-size: 2.25rem;
+	padding-bottom: 5px;
+}
+
+h2 {
+	font-size: 1.75rem;
+	color: #a5b4fc;
+}
+
+h3 {
+	font-size: 1.5rem;
+	color: #93c5fd;
+}
+
+p {
+	margin-bottom: 1.25rem;
+}
+
+a {
+	color: #93c5fd;
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+blockquote {
+	padding: 10px 20px;
+	margin: 0;
+	background-color: #3f3f46;
+	border-left: 4px solid #4b5563;
+	color: #d1d5db;
+	font-style: italic;
+}
+
+blockquote p {
+	margin: 0;
+}
+
+ul,
+ol {
+	padding-left: 20px;
+	margin-bottom: 1.25rem;
+}
+
+ul li,
+ol li {
+	margin-bottom: 8px;
+}
+
+ul li {
+	list-style-type: disc;
+}
+
+ol li {
+	list-style-type: decimal;
+}
+
+input[type="checkbox"] {
+	margin-right: 8px;
+}
+
+table {
+	width: 100%;
+	border-collapse: collapse;
+	margin-bottom: 1.25rem;
+}
+
+table th,
+table td {
+	padding: 12px;
+	text-align: left;
+	border: 1px solid #3f3f46;
+}
+
+table th {
+	background-color: #27272a;
+	color: #f3f4f6;
+	font-weight: bold;
+}
+
+table td {
+	color: #e4e4e7;
+}
+
+img {
+	max-width: 100%;
+	height: auto;
+	border-radius: 8px;
+}
+
+hr {
+	border: 1px solid #4B5563;
+	margin: 1.25rem 0;
+}
+
+
+em {
+	color: #a5b4fc;
+}
+
+strong {
+	color: #fca5a5;
+}
+
+table a {
+	color: #93c5fd;
+	text-decoration: none;
+}
+
+table a:hover {
+	text-decoration: underline;
+}
+
+sub {
+	font-size: 0.75em;
+	vertical-align: sub;
+}
+
+sup {
+	font-size: 0.75em;
+	vertical-align: super;
 }
