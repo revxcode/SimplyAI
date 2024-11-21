@@ -49,7 +49,7 @@ const MarkdownRender = (markdown) => {
         .use(rehypeHighlight, { languages: { ...common, bnf } })
         .use(rehypeStringify)
 
-    const result = processor.processSync(markdown)
+    const result = processor.processSync(markdown.markdown)
     const content = result.toString()
 
     useEffect(() => {

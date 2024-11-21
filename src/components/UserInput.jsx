@@ -8,7 +8,7 @@ const UserInput = ({ setIsConversations }) => {
     const [userInput, setUserInput] = useState();
     const { isMobile } = DeviceType();
 
-    const handleSendMessage = useCallback(async () => {
+    const handleSendMessage = async () => {
         if (!userInput) return;
 
         setIsConversations((prev) => [
@@ -34,7 +34,7 @@ const UserInput = ({ setIsConversations }) => {
         } catch (error) {
             console.error(error);
         }
-    }, [userInput, setIsConversations]);
+    };
 
     useEffect(() => {
         if (textareaRef.current) {
