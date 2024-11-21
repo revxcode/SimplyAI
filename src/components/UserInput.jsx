@@ -2,10 +2,11 @@ import { Navigation } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { chatGenConversation } from "@/utils/gemini2";
 import DeviceType from "@/utils/media-query";
+import { useUserPromptStore } from "@/stores/storeUserPrompt";
 
-const UserInput = ({ setIsConversations, setIsLoading, isStartPmropt }) => {
+const UserInput = ({ setIsConversations, setIsLoading }) => {
     const textareaRef = useRef(null);
-    const [userInput, setUserInput] = useState("");
+    const { userInput, setUserInput } = useUserPromptStore();
     const { isMobile } = DeviceType();
 
     const handleSendMessage = async () => {
@@ -57,25 +58,31 @@ const UserInput = ({ setIsConversations, setIsLoading, isStartPmropt }) => {
     };
 
     useEffect(() => {
-        setUserInput(isStartPmropt);
         if (textareaRef.current) {
             textareaRef.current.style.height = "auto";
             textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
         }
+
         const handleKeyDown = (event) => {
+            if (event.ctrlKey && event.key === "a") {
+                textareaRef.current.focus();
+                return;
+            }
             if (event.key.match(/[a-zA-Z0-9\s]{1}$/) && !event.ctrlKey && !event.altKey && !event.metaKey) {
                 textareaRef.current.focus();
+                return;
             }
             if (event.key === "Enter" && !event.shiftKey && userInput && !isMobile) {
                 event.preventDefault();
                 handleSendMessage();
+                return;
             }
         };
         window.addEventListener('keydown', handleKeyDown);
         return () => {
             window.removeEventListener('keydown', handleKeyDown);
         }
-    }, [userInput, isMobile, handleSendMessage, isStartPmropt]);
+    }, [userInput, isMobile, handleSendMessage]);
 
     return (
         <div className="flex w-full items-center justify-between duration-200 z-20 p-2">

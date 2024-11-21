@@ -4,12 +4,13 @@ import UserInput from "@/components/UserInput";
 import { Eaching } from "@/utils/eaching";
 import { useEffect, useRef, useState } from "react";
 import { BookText, CircleHelp, FileLineChart, Fingerprint, MessageCircleQuestion, Languages } from "lucide-react"
+import { useUserPromptStore } from "@/stores/storeUserPrompt";
 
 function NewHome() {
     const containerRef = useRef(null);
     const [isConversations, setIsConversations] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
-    const [isStartPmropt, setIsStartPrompt] = useState("");
+    const { setUserInput } = useUserPromptStore();
 
     useEffect(() => {
         if (containerRef.current) {
@@ -60,8 +61,8 @@ function NewHome() {
                                 render={(item) => (
                                     <button
                                         type="button"
-                                        className="flex border border-zinc-600 px-4 py-2 rounded-full gap-2 hover:text-white duration-200"
-                                        onClick={() => setIsStartPrompt(item.content)}
+                                        className="flex border border-zinc-600 px-4 py-2 rounded-full gap-2 text-zinc-300 hover:text-white duration-200"
+                                        onClick={() => setUserInput(item.content)}
                                     >
                                         {item.icon}{item.title}
                                     </button>
@@ -103,7 +104,6 @@ function NewHome() {
             <UserInput
                 setIsConversations={setIsConversations}
                 setIsLoading={setIsLoading}
-                isStartPmropt={isStartPmropt}
             />
             <span className="text-center text-sm pb-1 text-zinc-200">
                 SimplyAI 2.0 can be accessed at <a href="https://simply-ai-six.vercel.app" className="text-zinc-500">SimplyAI</a>

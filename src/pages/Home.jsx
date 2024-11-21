@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { useGeminiAI } from "@/utils/gemini";
 import { MdRender } from "@/components/MdRender";
 import { CircleArrowUp, Clock, Trash2 } from "lucide-react";
-import { useConversationHistorys } from "@/stores/StoreConversationHistorys";
+import { useConversationHistorys } from "@/stores/storeConversationHistorys";
 
 export default function Home() {
 	const { conversationHistory, setConversationHistory } = useConversationHistorys();

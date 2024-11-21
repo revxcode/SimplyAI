@@ -271,7 +271,7 @@ sup {
 	position: relative;
 	width: 0px;
 	height: 0px;
-	animation: loadingxx 5s infinite linear;
+	animation: loadingxx 8s infinite linear;
 }
 
 @keyframes loadingxx {
