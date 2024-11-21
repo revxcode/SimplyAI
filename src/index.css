@@ -250,3 +250,36 @@ sup {
 	font-size: 0.75em;
 	vertical-align: super;
 }
+
+.loading-animation {
+	width: 100%;
+	animation: loadingx 1s linear;
+}
+
+@keyframes loadingx {
+	0% {
+		width: 0;
+	}
+
+	100% {
+		width: 100%;
+	}
+}
+
+.loading-animation div {
+	display: inline-block;
+	position: relative;
+	width: 0px;
+	height: 0px;
+	animation: loadingxx 5s infinite linear;
+}
+
+@keyframes loadingxx {
+	0% {
+		width: 0px;
+	}
+
+	100% {
+		width: 100%;
+	}
+}

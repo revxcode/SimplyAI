@@ -14,7 +14,7 @@ import 'katex/dist/katex.min.css'
 import 'highlight.js/styles/atom-one-dark.css'
 import remarkHtml from 'remark-html'
 
-const MarkdownRender = (markdown) => {
+const MarkdownRender = ({ markdown }) => {
     const [copiedCodes, setCopiedCodes] = useState({})
 
     const copyToClipboard = (code, index) => {
@@ -49,7 +49,7 @@ const MarkdownRender = (markdown) => {
         .use(rehypeHighlight, { languages: { ...common, bnf } })
         .use(rehypeStringify)
 
-    const result = processor.processSync(markdown.markdown)
+    const result = processor.processSync(markdown)
     const content = result.toString()
 
     useEffect(() => {

@@ -1,11 +1,11 @@
 import { Navigation } from "lucide-react";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { chatGenConversation } from "@/utils/gemini2";
 import DeviceType from "@/utils/media-query";
 
-const UserInput = ({ setIsConversations }) => {
+const UserInput = ({ setIsConversations, setIsLoading, isStartPmropt }) => {
     const textareaRef = useRef(null);
-    const [userInput, setUserInput] = useState();
+    const [userInput, setUserInput] = useState("");
     const { isMobile } = DeviceType();
 
     const handleSendMessage = async () => {
@@ -20,23 +20,44 @@ const UserInput = ({ setIsConversations }) => {
         ]);
 
         setUserInput("");
+        setIsLoading(true);
+
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 8000);
 
         try {
-            const response = await chatGenConversation({ content: userInput });
-
-            setIsConversations((prev) => [
-                ...prev,
-                {
-                    role: "assistant",
-                    content: response
-                }
+            const response = await Promise.race([
+                chatGenConversation({ content: userInput, signal: controller.signal }),
+                new Promise((_, reject) =>
+                    setTimeout(() => reject(new Error("Request timed out")), 8000)
+                )
             ]);
+
+            if (response) {
+                clearTimeout(timeoutId);
+                setIsConversations((prev) => [
+                    ...prev,
+                    {
+                        role: "assistant",
+                        content: response
+                    }
+                ]);
+                setIsLoading(false);
+            }
         } catch (error) {
-            console.error(error);
+            setIsLoading(false);
+            if (error.message === "Request timed out") {
+                console.error("Request timeout");
+            } else {
+                console.error(error);
+            }
+        } finally {
+            clearTimeout(timeoutId);
         }
     };
 
     useEffect(() => {
+        setUserInput(isStartPmropt);
         if (textareaRef.current) {
             textareaRef.current.style.height = "auto";
             textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
@@ -54,7 +75,7 @@ const UserInput = ({ setIsConversations }) => {
         return () => {
             window.removeEventListener('keydown', handleKeyDown);
         }
-    }, [userInput, isMobile, handleSendMessage]);
+    }, [userInput, isMobile, handleSendMessage, isStartPmropt]);
 
     return (
         <div className="flex w-full items-center justify-between duration-200 z-20 p-2">
