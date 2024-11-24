@@ -5,10 +5,11 @@ import { Eaching } from "@/utils/eaching";
 import { useEffect, useRef, useState } from "react";
 import { BookText, CircleHelp, FileLineChart, Fingerprint, MessageCircleQuestion, Languages } from "lucide-react"
 import { useUserPromptStore } from "@/stores/storeUserPrompt";
+import { useConversationHistory } from "@/stores/storeConversationHistorys";
 
 function NewHome() {
     const containerRef = useRef(null);
-    const [isConversations, setIsConversations] = useState([]);
+    const { conversationHistorys } = useConversationHistory();
     const [isLoading, setIsLoading] = useState(false);
     const { setUserInput } = useUserPromptStore();
 
@@ -19,7 +20,7 @@ function NewHome() {
                 behavior: "smooth",
             });
         }
-    }, [isConversations]);
+    }, [conversationHistorys]);
 
     const startPrompts = [
         {
@@ -54,7 +55,7 @@ function NewHome() {
             <div ref={containerRef} className="flex flex-col h-full w-full overflow-y-auto mt-20 pb-16">
                 <Header />
                 <div className="relative w-full md:max-w-3xl mx-auto px-2">
-                    {isConversations.length === 0 && (
+                    {conversationHistorys.length === 0 && (
                         <div className="flex flex-wrap items-center justify-center gap-4 translate-y-52">
                             <Eaching
                                 of={startPrompts}
@@ -71,7 +72,7 @@ function NewHome() {
                         </div>
                     )}
                     <Eaching
-                        of={isConversations}
+                        of={conversationHistorys}
                         render={(item) => {
                             return item.role === "user" ? (
                                 <div className="flex flex-row-reverse mb-8">
@@ -102,7 +103,6 @@ function NewHome() {
                 </div>
             </div>
             <UserInput
-                setIsConversations={setIsConversations}
                 setIsLoading={setIsLoading}
             />
             <span className="text-center text-sm pb-1 text-zinc-200">

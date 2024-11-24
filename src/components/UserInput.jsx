@@ -1,24 +1,21 @@
 import { Navigation } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import { chatGenConversation } from "@/utils/gemini2";
-import DeviceType from "@/utils/media-query";
+import { useGemini2 } from "@/utils/gemini2";
 import { useUserPromptStore } from "@/stores/storeUserPrompt";
+import { useConversationHistory } from "@/stores/storeConversationHistorys";
+import DeviceType from "@/utils/media-query";
 
-const UserInput = ({ setIsConversations, setIsLoading }) => {
+const UserInput = ({ setIsLoading }) => {
     const textareaRef = useRef(null);
-    const { userInput, setUserInput } = useUserPromptStore();
     const { isMobile } = DeviceType();
+    const { userInput, setUserInput } = useUserPromptStore();
+    const { addConversationHistory } = useConversationHistory();
+    const { chatGenConversation } = useGemini2();
 
     const handleSendMessage = async () => {
         if (!userInput) return;
 
-        setIsConversations((prev) => [
-            ...prev,
-            {
-                role: "user",
-                content: userInput
-            }
-        ]);
+        addConversationHistory({ role: "user", content: userInput });
 
         setUserInput("");
         setIsLoading(true);
@@ -36,14 +33,8 @@ const UserInput = ({ setIsConversations, setIsLoading }) => {
 
             if (response) {
                 clearTimeout(timeoutId);
-                setIsConversations((prev) => [
-                    ...prev,
-                    {
-                        role: "assistant",
-                        content: response
-                    }
-                ]);
                 setIsLoading(false);
+                addConversationHistory({ role: "model", content: response });
             }
         } catch (error) {
             setIsLoading(false);
@@ -64,18 +55,15 @@ const UserInput = ({ setIsConversations, setIsLoading }) => {
         }
 
         const handleKeyDown = (event) => {
-            if (event.ctrlKey && event.key === "a") {
-                textareaRef.current.focus();
-                return;
-            }
-            if (event.key.match(/[a-zA-Z0-9\s]{1}$/) && !event.ctrlKey && !event.altKey && !event.metaKey) {
-                textareaRef.current.focus();
-                return;
-            }
             if (event.key === "Enter" && !event.shiftKey && userInput && !isMobile) {
                 event.preventDefault();
                 handleSendMessage();
-                return;
+            }
+            if (event.ctrlKey && event.key === "a") {
+                textareaRef.current.focus();
+            }
+            if (event.key.match(/[a-zA-Z0-9\s]{1}$/) && !event.ctrlKey && !event.altKey && !event.metaKey) {
+                textareaRef.current.focus();
             }
         };
         window.addEventListener('keydown', handleKeyDown);
