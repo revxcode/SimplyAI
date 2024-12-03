@@ -30,7 +30,7 @@ export const useGemini2 = () => {
         });
 
         const result = await chat.sendMessage(content);
-        console.log(result.response.text());
+        // console.log(result.response.text());
         return result.response.text();
     }
 
