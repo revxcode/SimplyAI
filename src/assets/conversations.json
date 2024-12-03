@@ -214,5 +214,13 @@
                 "text": "The integral of $\\sec(x)$ is $\\ln|\\sec(x) + \\tan(x)| + C$, where $C$ is the constant of integration."
             }
         ]
+    },
+    {
+        "role": "user",
+        "parts": [
+            {
+                "text": "Gunakan bahasa yang saya gunakan"
+            }
+        ]
     }
 ]

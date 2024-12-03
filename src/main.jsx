@@ -5,14 +5,6 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import './index.css'
 
 const router = createBrowserRouter([
-  // {
-  //   path: "/",
-  //   element: (
-  //     <MainLayout>
-  //       <Home />
-  //     </MainLayout>
-  //   )
-  // },
   {
     path: "/",
     element: (

@@ -10,7 +10,7 @@ const UserInput = ({ setIsLoading }) => {
     const { isMobile } = DeviceType();
     const { userInput, setUserInput } = useUserPromptStore();
     const { addConversationHistory } = useConversationHistory();
-    const { chatGenConversation } = useGemini2();
+    const { textGenUsingAPI } = useGemini2();
 
     const handleSendMessage = async () => {
         if (!userInput) return;
@@ -25,7 +25,7 @@ const UserInput = ({ setIsLoading }) => {
 
         try {
             const response = await Promise.race([
-                chatGenConversation({ content: userInput, signal: controller.signal }),
+                textGenUsingAPI({ content: userInput, signal: controller.signal }),
                 new Promise((_, reject) =>
                     setTimeout(() => reject(new Error("Request timed out")), 8000)
                 )
