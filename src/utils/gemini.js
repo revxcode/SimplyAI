@@ -2,7 +2,7 @@ import { GoogleGenerativeAI } from "@google/generative-ai"
 import { useConversationHistorys } from "@/stores/storeConversationHistorys"
 
 export const useGeminiAI = () => {
-	const API_KEY = import.meta.env.VITE_APP_GEMINI_API_TOKEN
+	const API_KEY = import.meta.env.VITE_APP_GEMINI_API_TOKEN | process.env.VITE_APP_GEMINI_API_TOKEN
 	const { conversationHistory } = useConversationHistorys()
 
 	const generateResponse = async (content) => {
